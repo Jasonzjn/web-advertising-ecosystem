@@ -1,0 +1,8 @@
+com\advertising\adservice\config\CorsConfig.class
+com\advertising\adservice\AdServiceApplication.class
+com\advertising\adservice\dto\AdResponse.class
+com\advertising\adservice\dto\AdRequest.class
+com\advertising\adservice\service\AdService.class
+com\advertising\adservice\repository\AdRepository.class
+com\advertising\adservice\controller\AdController.class
+com\advertising\adservice\entity\Ad.class

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>商品列表 - 购物网站</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .ad-container {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 10px 0;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+        .ad-image {
+            max-width: 100%;
+            height: auto;
+        }
+        .product-card {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 15px;
+            transition: box-shadow 0.3s;
+        }
+        .product-card:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" th:text="${websiteName}">购物网站</a>
+        <div class="navbar-nav ms-auto">
+            <a class="nav-link" href="/products">商品</a>
+            <a class="nav-link" href="/electronics">电子产品</a>
+            <a class="nav-link" href="/clothing">服装</a>
+            <a class="nav-link" href="/books">图书</a>
+            <a class="nav-link" href="#">购物车</a>
+            <a class="nav-link" href="#">我的账户</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <h1>商品分类</h1>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="product-card">
+                        <img src="https://via.placeholder.com/200" class="card-img-top" alt="电子产品">
+                        <h5>电子产品</h5>
+                        <p>手机、电脑、平板等</p>
+                        <a href="/electronics" class="btn btn-primary">查看商品</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="product-card">
+                        <img src="https://via.placeholder.com/200" class="card-img-top" alt="服装">
+                        <h5>服装</h5>
+                        <p>男装、女装、童装等</p>
+                        <a href="/clothing" class="btn btn-primary">查看商品</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="product-card">
+                        <img src="https://via.placeholder.com/200" class="card-img-top" alt="图书">
+                        <h5>图书</h5>
+                        <p>小说、教材、专业书籍等</p>
+                        <a href="/books" class="btn btn-primary">查看商品</a>
+                    </div>
+                </div>
+            </div>
+
+            <h2>热门商品</h2>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="product-card">
+                        <img src="https://via.placeholder.com/150" class="card-img-top" alt="商品1">
+                        <h6>商品名称1</h6>
+                        <p class="text-muted">¥299.00</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="product-card">
+                        <img src="https://via.placeholder.com/150" class="card-img-top" alt="商品2">
+                        <h6>商品名称2</h6>
+                        <p class="text-muted">¥199.00</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="product-card">
+                        <img src="https://via.placeholder.com/150" class="card-img-top" alt="商品3">
+                        <h6>商品名称3</h6>
+                        <p class="text-muted">¥399.00</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="product-card">
+                        <img src="https://via.placeholder.com/150" class="card-img-top" alt="商品4">
+                        <h6>商品名称4</h6>
+                        <p class="text-muted">¥499.00</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <h3>推荐广告</h3>
+            <div id="ads-container">
+                <!-- 广告将通过JavaScript加载 -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // 从广告API获取广告数据
+    fetch('/api/ads')
+        .then(response => response.json())
+        .then(ads => {
+            const container = document.getElementById('ads-container');
+            if(ads && ads.length > 0) {
+                ads.forEach(ad => {
+                    const adElement = document.createElement('div');
+                    adElement.className = 'ad-container';
+                    adElement.innerHTML = `
+                            <a href="${ad.targetUrl}" target="_blank">
+                                <img src="${ad.imageUrl}" alt="${ad.title}" class="ad-image">
+                                <h5>${ad.title}</h5>
+                                <p>${ad.content}</p>
+                            </a>
+                        `;
+                    container.appendChild(adElement);
+                });
+            } else {
+                container.innerHTML = '<p>暂无广告</p>';
+            }
+        })
+        .catch(error => {
+            console.error('获取广告失败:', error);
+            document.getElementById('ads-container').innerHTML = '<p>广告加载失败</p>';
+        });
+</script>
+</body>
+</html>

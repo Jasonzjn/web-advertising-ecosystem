@@ -1,0 +1,5 @@
+com\advertising\news\service\AdAPIService.class
+com\advertising\news\controller\NewsController.class
+com\advertising\news\controller\AdController.class
+com\advertising\news\NewsSiteApplication.class
+com\advertising\news\dto\AdResponse.class

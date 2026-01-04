@@ -1,0 +1,5 @@
+com\advertising\shopping\controller\AdController.class
+com\advertising\shopping\service\AdAPIService.class
+com\advertising\shopping\dto\AdResponse.class
+com\advertising\shopping\controller\ShoppingController.class
+com\advertising\shopping\ShoppingSiteApplication.class

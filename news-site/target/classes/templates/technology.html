@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>科技新闻 - 新闻网站</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .ad-container {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 10px 0;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+        .ad-image {
+            max-width: 100%;
+            height: auto;
+        }
+        .news-item {
+            border-bottom: 1px solid #eee;
+            padding: 15px 0;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" th:text="${websiteName}">新闻网站</a>
+        <div class="navbar-nav">
+            <a class="nav-link" href="/news">首页</a>
+            <a class="nav-link" href="/politics">政治</a>
+            <a class="nav-link" href="/sports">体育</a>
+            <a class="nav-link" href="/technology">科技</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <h1>科技新闻</h1>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="news-item">
+                <h3>人工智能：新技术突破</h3>
+                <p>报道人工智能领域的最新研究成果和技术突破...</p>
+                <small class="text-muted">发布时间：2023-06-15 | 作者：科技记者</small>
+            </div>
+
+            <div class="news-item">
+                <h3>互联网：行业发展趋势</h3>
+                <p>分析互联网行业最新发展趋势和市场动态...</p>
+                <small class="text-muted">发布时间：2023-06-14 | 作者：网络记者</small>
+            </div>
+
+            <div class="news-item">
+                <h3>电子产品：新品发布</h3>
+                <p>报道最新电子产品发布信息和技术创新...</p>
+                <small class="text-muted">发布时间：2023-06-13 | 作者：产品记者</small>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <h3>科技广告</h3>
+            <div id="ads-container">
+                <!-- 广告将通过JavaScript加载 -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // 从广告API获取广告数据
+    fetch('/api/ads')
+        .then(response => response.json())
+        .then(ads => {
+            const container = document.getElementById('ads-container');
+            if(ads && ads.length > 0) {
+                ads.forEach(ad => {
+                    const adElement = document.createElement('div');
+                    adElement.className = 'ad-container';
+                    adElement.innerHTML = `
+                            <a href="${ad.targetUrl}" target="_blank">
+                                <img src="${ad.imageUrl}" alt="${ad.title}" class="ad-image">
+                                <h5>${ad.title}</h5>
+                                <p>${ad.content}</p>
+                            </a>
+                        `;
+                    container.appendChild(adElement);
+                });
+            } else {
+                container.innerHTML = '<p>暂无广告</p>';
+            }
+        })
+        .catch(error => {
+            console.error('获取广告失败:', error);
+            document.getElementById('ads-container').innerHTML = '<p>广告加载失败</p>';
+        });
+</script>
+</body>
+</html>

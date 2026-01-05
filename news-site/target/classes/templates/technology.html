@@ -21,6 +21,23 @@
             border-bottom: 1px solid #eee;
             padding: 15px 0;
         }
+        .news-type-badge {
+            font-size: 0.8em;
+            padding: 0.25em 0.5em;
+            border-radius: 0.25rem;
+            margin-left: 10px;
+        }
+        .sport-badge { background-color: #d4edda; color: #155724; }
+        .electronic-badge { background-color: #cce5ff; color: #004085; }
+        .clothing-badge { background-color: #f8d7da; color: #721c24; }
+        .food-badge { background-color: #fff3cd; color: #856404; }
+        .news-link {
+            text-decoration: none;
+            color: inherit;
+        }
+        .news-link:hover {
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
@@ -41,27 +58,23 @@
 
     <div class="row">
         <div class="col-md-8">
-            <div class="news-item">
-                <h3>人工智能：新技术突破</h3>
-                <p>报道人工智能领域的最新研究成果和技术突破...</p>
-                <small class="text-muted">发布时间：2023-06-15 | 作者：科技记者</small>
-            </div>
-
-            <div class="news-item">
-                <h3>互联网：行业发展趋势</h3>
-                <p>分析互联网行业最新发展趋势和市场动态...</p>
-                <small class="text-muted">发布时间：2023-06-14 | 作者：网络记者</small>
-            </div>
-
-            <div class="news-item">
-                <h3>电子产品：新品发布</h3>
-                <p>报道最新电子产品发布信息和技术创新...</p>
-                <small class="text-muted">发布时间：2023-06-13 | 作者：产品记者</small>
+            <div class="news-item" th:each="news : ${newsList}">
+                <h3>
+                    <span th:text="${news.title}">新闻标题</span>
+                    <span th:switch="${news.type}" class="news-type-badge">
+                        <span th:case="SPORT" class="news-type-badge sport-badge">体育</span>
+                        <span th:case="ELECTRONIC" class="news-type-badge electronic-badge">科技</span>
+                        <span th:case="CLOTHING" class="news-type-badge clothing-badge">时尚</span>
+                        <span th:case="FOOD" class="news-type-badge food-badge">美食</span>
+                    </span>
+                </h3>
+                <p th:text="${news.content}">这是新闻内容的摘要，详细介绍新闻的主要内容和要点，让读者了解事件的全貌...</p>
+                <small class="text-muted" th:text="'发布时间：' + ${news.publishDate} + ' | 作者：' + ${news.author}">发布时间：2023-06-15 | 作者：记者A</small>
             </div>
         </div>
 
         <div class="col-md-4">
-            <h3>科技广告</h3>
+            <h3>广告位</h3>
             <div id="ads-container">
                 <!-- 广告将通过JavaScript加载 -->
             </div>
@@ -94,7 +107,7 @@
             }
         })
         .catch(error => {
-            console.error('获取广告失败:', error);
+            console.error('获取广告数据失败:', error);
             document.getElementById('ads-container').innerHTML = '<p>广告加载失败</p>';
         });
 </script>

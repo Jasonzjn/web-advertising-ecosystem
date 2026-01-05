@@ -27,6 +27,16 @@
         .product-card:hover {
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
+        .product-type-badge {
+            font-size: 0.75em;
+            padding: 0.25em 0.5em;
+            border-radius: 0.25rem;
+            margin-left: 5px;
+        }
+        .sport-badge { background-color: #d4edda; color: #155724; }
+        .electronic-badge { background-color: #cce5ff; color: #004085; }
+        .clothing-badge { background-color: #f8d7da; color: #721c24; }
+        .food-badge { background-color: #fff3cd; color: #856404; }
     </style>
 </head>
 <body>
@@ -35,9 +45,10 @@
         <a class="navbar-brand" th:text="${websiteName}">购物网站</a>
         <div class="navbar-nav ms-auto">
             <a class="nav-link" href="/products">商品</a>
-            <a class="nav-link" href="/electronics">电子产品</a>
-            <a class="nav-link" href="/clothing">服装</a>
-            <a class="nav-link" href="/books">图书</a>
+            <a class="nav-link" href="/type/SPORT">运动</a>
+            <a class="nav-link" href="/type/ELECTRONIC">电子</a>
+            <a class="nav-link" href="/type/CLOTHING">服装</a>
+            <a class="nav-link" href="/type/FOOD">食品</a>
             <a class="nav-link" href="#">购物车</a>
             <a class="nav-link" href="#">我的账户</a>
         </div>
@@ -52,58 +63,46 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="product-card">
-                        <img src="https://via.placeholder.com/200" class="card-img-top" alt="电子产品">
-                        <h5>电子产品</h5>
-                        <p>手机、电脑、平板等</p>
-                        <a href="/electronics" class="btn btn-primary">查看商品</a>
+                        <img src="https://via.placeholder.com/200" class="card-img-top" alt="运动商品">
+                        <h5>运动商品</h5>
+                        <p>运动装备、健身器材等</p>
+                        <a href="/type/SPORT" class="btn btn-primary">查看商品</a>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="product-card">
-                        <img src="https://via.placeholder.com/200" class="card-img-top" alt="服装">
-                        <h5>服装</h5>
-                        <p>男装、女装、童装等</p>
-                        <a href="/clothing" class="btn btn-primary">查看商品</a>
+                        <img src="https://via.placeholder.com/200" class="card-img-top" alt="电子商品">
+                        <h5>电子商品</h5>
+                        <p>手机、电脑、配件等</p>
+                        <a href="/type/ELECTRONIC" class="btn btn-primary">查看商品</a>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="product-card">
-                        <img src="https://via.placeholder.com/200" class="card-img-top" alt="图书">
-                        <h5>图书</h5>
-                        <p>小说、教材、专业书籍等</p>
-                        <a href="/books" class="btn btn-primary">查看商品</a>
+                        <img src="https://via.placeholder.com/200" class="card-img-top" alt="服装商品">
+                        <h5>服装商品</h5>
+                        <p>男女装、童装等</p>
+                        <a href="/type/CLOTHING" class="btn btn-primary">查看商品</a>
                     </div>
                 </div>
             </div>
 
             <h2>热门商品</h2>
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-4" th:each="product : ${products}">
                     <div class="product-card">
-                        <img src="https://via.placeholder.com/150" class="card-img-top" alt="商品1">
-                        <h6>商品名称1</h6>
-                        <p class="text-muted">¥299.00</p>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="product-card">
-                        <img src="https://via.placeholder.com/150" class="card-img-top" alt="商品2">
-                        <h6>商品名称2</h6>
-                        <p class="text-muted">¥199.00</p>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="product-card">
-                        <img src="https://via.placeholder.com/150" class="card-img-top" alt="商品3">
-                        <h6>商品名称3</h6>
-                        <p class="text-muted">¥399.00</p>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="product-card">
-                        <img src="https://via.placeholder.com/150" class="card-img-top" alt="商品4">
-                        <h6>商品名称4</h6>
-                        <p class="text-muted">¥499.00</p>
+                        <img th:src="${product.imageUrl}" class="card-img-top" th:onerror="'https://via.placeholder.com/150'" alt="商品图片">
+                        <h6 th:text="${product.name}">商品名称</h6>
+                        <p class="text-muted" th:text="'¥' + ${product.price}">¥0.00</p>
+                        <p th:text="${product.description}">商品描述</p>
+                        <div>
+                            <span th:switch="${product.type}" class="product-type-badge">
+                                <span th:case="SPORT" class="product-type-badge sport-badge">运动</span>
+                                <span th:case="ELECTRONIC" class="product-type-badge electronic-badge">电子</span>
+                                <span th:case="CLOTHING" class="product-type-badge clothing-badge">服装</span>
+                                <span th:case="FOOD" class="product-type-badge food-badge">食品</span>
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>

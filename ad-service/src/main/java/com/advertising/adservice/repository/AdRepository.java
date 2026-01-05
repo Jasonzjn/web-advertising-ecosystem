@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface AdRepository extends JpaRepository<Ad, Long> {
 
-    @Query("SELECT a FROM Ad a WHERE a.targetWebsite = :website OR a.targetWebsite = 'both' " +
+    @Query("SELECT a FROM Ad a WHERE (a.targetWebsite = :website OR a.targetWebsite = 'both') " +
             "AND a.startDate <= :currentTime AND a.endDate >= :currentTime " +
             "ORDER BY a.id DESC")
     List<Ad> findActiveAdsByWebsite(@Param("website") String website, @Param("currentTime") LocalDateTime currentTime);

@@ -21,6 +21,28 @@
             border-bottom: 1px solid #eee;
             padding: 15px 0;
         }
+        .news-type-badge {
+            font-size: 0.8em;
+            padding: 0.25em 0.5em;
+            border-radius: 0.25rem;
+            margin-left: 10px;
+        }
+        .sport-badge { background-color: #d4edda; color: #155724; }
+        .electronic-badge { background-color: #cce5ff; color: #004085; }
+        .clothing-badge { background-color: #f8d7da; color: #721c24; }
+        .food-badge { background-color: #fff3cd; color: #856404; }
+        .news-link {
+            text-decoration: none;
+            color: inherit;
+        }
+        .news-link:hover {
+            text-decoration: none;
+        }
+        .read-more {
+            color: #007bff;
+            text-decoration: underline;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -29,45 +51,38 @@
         <a class="navbar-brand" th:text="${websiteName}">新闻网站</a>
         <div class="navbar-nav">
             <a class="nav-link" href="/news">首页</a>
-            <a class="nav-link" href="/politics">政治</a>
-            <a class="nav-link" href="/sports">体育</a>
-            <a class="nav-link" href="/technology">科技</a>
+            <a class="nav-link" href="/type/SPORT">体育</a>
+            <a class="nav-link" href="/type/ELECTRONIC">科技</a>
+            <a class="nav-link" href="/type/CLOTHING">时尚</a>
+            <a class="nav-link" href="/type/FOOD">美食</a>
         </div>
     </div>
 </nav>
 
 <div class="container mt-4">
-    <h1>新闻列表</h1>
+    <h1>最新新闻</h1>
 
     <div class="row">
         <div class="col-md-8">
-            <div class="news-item">
-                <h3>重要新闻标题 1</h3>
-                <p>这是新闻内容的摘要，详细介绍新闻的主要内容和要点，让读者了解事件的全貌...</p>
-                <small class="text-muted">发布时间：2023-06-15 | 作者：记者A</small>
-            </div>
-
-            <div class="news-item">
-                <h3>热点新闻标题 2</h3>
-                <p>这是另一篇新闻的摘要，介绍最新的热点事件和相关背景信息...</p>
-                <small class="text-muted">发布时间：2023-06-14 | 作者：记者B</small>
-            </div>
-
-            <div class="news-item">
-                <h3>深度报道标题 3</h3>
-                <p>深度分析类新闻摘要，提供多角度的分析和解读...</p>
-                <small class="text-muted">发布时间：2023-06-13 | 作者：记者C</small>
-            </div>
-
-            <div class="news-item">
-                <h3>社会新闻标题 4</h3>
-                <p>关注社会民生的新闻摘要，反映社会现状和民众关切...</p>
-                <small class="text-muted">发布时间：2023-06-12 | 作者：记者D</small>
+            <div class="news-item" th:each="news : ${newsList}">
+                <h3>
+                    <a th:href="@{/news/{id}(id=${news.id})}" class="news-link">
+                        <span th:text="${news.title}">新闻标题</span>
+                    </a>
+                    <span th:switch="${news.type}" class="news-type-badge">
+                        <span th:case="SPORT" class="news-type-badge sport-badge">体育</span>
+                        <span th:case="ELECTRONIC" class="news-type-badge electronic-badge">科技</span>
+                        <span th:case="CLOTHING" class="news-type-badge clothing-badge">时尚</span>
+                        <span th:case="FOOD" class="news-type-badge food-badge">美食</span>
+                    </span>
+                </h3>
+                <p th:text="${news.content}">这是新闻内容的摘要，简要介绍新闻的主要内容和要点...</p>
+                <small class="text-muted" th:text="'发布时间：' + ${news.publishDate} + ' | 作者：' + ${news.author}">发布时间：2023-06-15 | 作者：记者</small>
             </div>
         </div>
 
         <div class="col-md-4">
-            <h3>推荐广告</h3>
+            <h3>广告位</h3>
             <div id="ads-container">
                 <!-- 广告将通过JavaScript加载 -->
             </div>
@@ -100,7 +115,7 @@
             }
         })
         .catch(error => {
-            console.error('获取广告失败:', error);
+            console.error('获取广告数据失败:', error);
             document.getElementById('ads-container').innerHTML = '<p>广告加载失败</p>';
         });
 </script>

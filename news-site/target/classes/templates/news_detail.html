@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><span th:text="${news.title}">新闻详情</span> - 新闻网站</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .ad-container {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 10px 0;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+        .ad-image {
+            max-width: 100%;
+            height: auto;
+        }
+        .news-detail-content {
+            line-height: 1.8;
+            font-size: 1.1em;
+        }
+        .news-meta {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .related-news {
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+            margin-top: 30px;
+        }
+        .news-image {
+            max-width: 100%;
+            height: auto;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .news-source {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+        .news-content {
+            font-size: 1.1em;
+        }
+        .news-image-small {
+            max-width: 100%;
+            height: auto;
+            margin: 15px 0;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .news-info {
+            margin-bottom: 15px;
+        }
+        .edit-info {
+            margin-top: 20px;
+            padding-top: 10px;
+            border-top: 1px solid #eee;
+            color: #666;
+            font-size: 0.9em;
+        }
+        .match-stats {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .match-stats h4 {
+            margin-top: 0;
+        }
+        .timeline-item {
+            margin: 10px 0;
+            padding-left: 20px;
+            border-left: 2px solid #007bff;
+        }
+        .timeline-title {
+            font-weight: bold;
+        }
+        .player-stats {
+            background-color: #e9ecef;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" th:text="${websiteName}">新闻网站</a>
+        <div class="navbar-nav">
+            <a class="nav-link" href="/news">首页</a>
+            <a class="nav-link" href="/type/SPORT">体育</a>
+            <a class="nav-link" href="/type/ELECTRONIC">科技</a>
+            <a class="nav-link" href="/type/CLOTHING">时尚</a>
+            <a class="nav-link" href="/type/FOOD">美食</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8">
+            <article>
+                <h1 class="mb-3" th:text="${news.title}">新闻标题</h1>
+
+                <div class="news-source" th:text="'来源：' + ${news.author} + ' | ' + ${news.publishDate}">来源：央视网 | 2024年07月22日 09:55:53</div>
+
+                <div class="news-meta mb-4">
+                    <div>
+                        <span class="text-muted">发布时间：</span>
+                        <span th:text="${news.publishDate}">发布时间</span>
+                    </div>
+                    <div>
+                        <span class="text-muted">分类：</span>
+                        <span th:switch="${news.type}">
+                            <span th:case="SPORT" class="badge bg-success">体育</span>
+                            <span th:case="ELECTRONIC" class="badge bg-primary">科技</span>
+                            <span th:case="CLOTHING" class="badge bg-danger">时尚</span>
+                            <span th:case="FOOD" class="badge bg-warning text-dark">美食</span>
+                        </span>
+                    </div>
+                </div>
+
+                <img th:src="${news.imageUrl}" alt="新闻图片" class="news-image" onerror="this.style.display='none'">
+
+                <!-- 根据新闻ID显示特定内容 -->
+                <div class="news-content" th:if="${news.id == 1}">
+                    <div class="news-info">
+                        <strong>体育新闻：</strong>时隔36年夺冠！阿根廷总分7-5法国，梅西双响，姆巴佩8球夺金靴
+                    </div>
+
+                    <p>北京时间12月19日，卡塔尔世界杯决赛落下帷幕，阿根廷队通过加时赛以7-5击败法国队（常规时间2-2，加时赛1-1，点球大战4-2），时隔36年再夺世界杯冠军，队史第三次捧起大力神杯。</p>
+
+                    <div class="match-stats">
+                        <h4>比赛结果</h4>
+                        <p><strong>阿根廷 7-5 法国</strong>（常规时间2-2，加时赛1-1，点球大战4-2）</p>
+                        <p>阿根廷时隔36年再夺世界杯冠军，队史第三次捧起大力神杯</p>
+                    </div>
+                    <div th:if="${news.type.name() == 'SPORT'}">
+                        <img src="https://inews.gtimg.com/news_bt/OWZMIzo66FfF04z3qAofgMFtqnoKPZFFbl90UtvTZ2fSoAA/641" alt="明星" class="news-image-small">
+                    </div>
+                    <h4>纪录时刻：</h4>
+                    <ul>
+                        <li>姆巴佩上演帽子戏法好戏，8球夺得金靴；</li>
+                        <li>梅西单届世界杯的小组赛、1/8决赛、1/4决赛、半决赛、决赛均取得进球，历史第一人；</li>
+                        <li>迪马利亚在奥运会、洲际杯赛和世界杯决赛都破门，历史首人；</li>
+                        <li>梅西世界杯第26次出场，独居历史出场数榜首；</li>
+                        <li>姆巴佩成为史上第二位世界杯决赛戴帽球员；</li>
+                        <li>姆巴佩世界杯决赛已进4球，超越齐达内、贝利等，成世界杯决赛射手王；</li>
+                        <li>姆巴佩已为法国打进36球，队史射手榜超过特雷泽盖，升至第六位；</li>
+                        <li>梅西超越马尔蒂尼（2217分钟），登顶世界杯出场时间榜第一。</li>
+                    </ul>
+
+                    <h4>比赛回顾：</h4>
+                    <div class="timeline-item">
+                        <span class="timeline-title">上半场：</span>
+                        <p>第23分钟，登贝莱被过了反抢，对阿根廷的迪马利亚犯规，裁判给了点球，梅西主罚骗过洛里，轻松命中，阿根廷队1-0领先法国；</p>
+                        <p>第36分钟，阿根廷队反击，阿尔瓦雷斯直塞，麦卡利斯特低平球传中，迪马利亚跟上破门，阿根廷队2-0领先；</p>
+                        <p>上半场结束，阿根廷队依靠着梅西的点射和迪马利亚的进球，2-0领先法国队；</p>
+                    </div>
+
+                    <div class="timeline-item">
+                        <span class="timeline-title">下半场：</span>
+                        <p>第80分钟，奥塔门迪拉倒穆阿尼，法国队获得点球，姆巴佩主罚命中，法国队1-2阿根廷；</p>
+                        <p>第82分钟，图拉姆和姆巴佩的连线，姆巴佩射门得分，法国队3分钟两球，2-2扳平比分；</p>
+                        <p>双方常规时间战成2-2平，比分进入到加时赛。</p>
+                    </div>
+
+                    <div class="timeline-item">
+                        <span class="timeline-title">加时赛：</span>
+                        <p>第109分钟，劳塔罗射门之前停球了一下，贻误战机，再度射门被封堵；</p>
+                        <p>第109分钟，阿库尼亚断球之后长传，劳塔罗单刀射门偏出；</p>
+                        <p>第109分钟，劳塔罗的小角度抽射被洛里扑出，梅西跟上补射破门，阿根廷队3-2法国队；</p>
+                        <p>第116分钟，姆巴佩射门造成蒙铁尔手球，法国队获得点球，姆巴佩主罚命中，法国队3-3阿根廷；</p>
+                    </div>
+
+                    <div class="timeline-item">
+                        <span class="timeline-title">点球大战：</span>
+                        <p>法国队先主罚：第一轮，姆巴佩和梅西均罚进；</p>
+                        <p>第二轮，科曼主罚点球被马丁内斯扑出，迪巴拉主罚命中；</p>
+                        <p>第三轮，琼阿梅尼踢偏了，帕雷德斯主罚命中；</p>
+                        <p>第四轮，穆阿尼命中，蒙铁尔主罚命中，阿根廷队点球大战4-2获胜；</p>
+                    </div>
+                    <div th:if="${news.type.name() == 'SPORT'}">
+                        <img src="https://inews.gtimg.com/news_bt/OZuzTPwyjeOhzOJj3a3LLwbqAE8KiNHwpG7SWd5o9fvasAA/641"alt="明星" class="news-image-small">
+                </div>
+
+"
+                    <div class="player-stats">
+                        <h5>首发阵容</h5>
+                        <p><strong>法国：</strong>1-洛里、5-孔德、4-瓦拉内、18-于帕梅卡诺、22-特奥、14-拉比奥、8-琼阿梅尼、7-格列兹曼、11-登贝莱、9-吉鲁、10-姆巴佩；</p>
+                        <p><strong>阿根廷：</strong>23-马丁内斯、26-莫利纳、13-罗梅罗、19-奥塔门迪、3-塔利亚菲科、7-德保罗、24-恩佐、20-麦卡利斯特、11-迪马利亚、10-梅西、9-阿尔瓦雷斯；</p>
+                    </div>
+
+                    <div class="edit-info">
+                        编辑：体育记者 负责编辑：体育编辑部
+                    </div>
+                </div>
+
+                <!-- ID为2的新闻内容 -->
+                <div class="news-content" th:if="${news.id == 2}">
+                    <div class="news-info">
+                        <strong>央视网消息：</strong>2024年巴黎奥运会将于当地时间7月26日开幕。巴黎奥组委7月20日表示，目前已有2000多名运动员入住奥运村，国际奥委会主席巴赫表示，巴黎奥运会已准备就绪，筹备工作一切顺利。
+                    </div>
+
+                    <p>巴黎奥运会的筹备工作加快步伐。安保人员对塞纳河沿岸6公里的路线进行了检查。当天，奥运会开幕式彩排在塞纳河上举行，但由于沿岸设置了安全屏障和警察部署，彩排内容没有对外公开。</p>
+                    <div th:if="${news.type.name() == 'SPORT'}">
+                        <img src="https://p5.img.cctvpic.com/photoworkspace/contentimg/2024/07/22/2024072209550748930.png" alt="巴黎奥运会准备就绪" class="news-image-small">
+                    </div>
+
+                    <p>国际奥委会主席巴赫当天在巴黎表示，奥运会的筹备工作进行得"非常顺利"。不过，在组织世界上最复杂的赛事时，组委会应保持警惕，不忽视任何挑战的出现。巴赫还表示，他对组委会充满信心，相信巴黎奥运会开幕式将给人留下深刻印象。</p>
+                    <div th:if="${news.type.name() == 'SPORT'}">
+                        <img src="https://p5.img.cctvpic.com/photoworkspace/contentimg/2024/07/22/2024072209551558390.png" alt="巴黎奥运会准备就绪" class="news-image-small">
+                    </div>
+                    <p>巴黎奥运会的开幕式、铁人三项和马拉松游泳比赛都将在塞纳河举办。为确保奥运会安全顺利进行，法国近期围绕塞纳河展开全面安保部署。</p>
+                    <div th:if="${news.type.name() == 'SPORT'}">
+                        <img src="https://p2.img.cctvpic.com/photoworkspace/contentimg/2024/07/22/2024072209552183137.png" alt="巴黎奥运会准备就绪" class="news-image-small">
+                    </div>
+                    <p>法国军方专门组建一个营，负责保护位于塞纳河东部河段的运动员登船区，该营行动主管表示，士兵们将使用反无人机系统，并与负责保卫巴黎上空的法国空军密切合作。</p>
+
+                    <div class="edit-info">
+                        编辑：刘珊 负责编辑：刘亮
+                    </div>
+                </div>
+                <!-- ID为3的新闻内容 -->
+                <div class="news-content" th:if="${news.id == 3}">
+                    <div class="news-info">
+                        <strong>科技新闻：</strong>2025年上半年，智能手机市场将迎来一波重磅新机发布潮。各大厂商纷纷推出自家的旗舰产品，力求在激烈的市场竞争中脱颖而出。今天，我们就来盘点一下即将在2025年上半年发布的热门手机型号，看看这些新机型有哪些亮点和创新。
+                    </div>
+
+                    <h3>三星 Galaxy S25 系列——开启2025年的旗舰之战</h3>
+                    <div th:if="${news.type.name() == 'ELECTRONIC'}">
+                        <img src="https://k.sinaimg.cn/n/sinakd20122/407/w500h707/20250204/e6bd-709e4ca1c9de05ad50bbc7da3664e6e4.jpg/w700d1q75cms.jpg" alt="巴黎奥运会准备就绪" class="news-image-small">
+                    </div>
+                    <p><strong>发布时间：</strong>2025年1月23日</p>
+                    <p>三星Galaxy S系列一直是安卓阵营的标杆，2025年的Galaxy S25系列也不例外。此次发布的S25、S25+和S25 Ultra三款机型，全系标配高通骁龙8 Elite移动平台，性能强悍。S25 Ultra更是配备了6.9英寸2K OLED屏幕，后置2亿像素主摄，内置5000mAh电池，支持45W有线和25W无线充电。</p>
+                    <p>三星在设计上也下足了功夫，S25系列的外观更加精致，屏幕边框更窄，整体手感更加舒适。尤其是S25 Ultra的摄像头模组设计，既美观又实用，拍照效果更上一层楼。</p>
+
+                    <h3>小米15 Ultra——影像旗舰的巅峰之作</h3>
+                    <div th:if="${news.type.name() == 'ELECTRONIC'}">
+                        <img src="https://k.sinaimg.cn/n/sinakd20122/530/w737h593/20250204/8868-f96f19312c01f38fb89e1823a064a345.jpg/w700d1q75cms.jpg" alt="巴黎奥运会准备就绪" class="news-image-small">
+                    </div>
+                    <p><strong>发布时间：</strong>2025年2月底</p>
+                    <p>小米15 Ultra是小米在2025年初的重磅之作。该机型搭载高通骁龙8 Elite移动平台，配备2K OLED四曲面国产屏幕，后置四摄，包括一英寸大底主摄和2亿像素潜望式长焦，影像能力堪称顶级。5800mAh的大电池和90W有线、80W无线充电，让续航和充电速度都无可挑剔。</p>
+                    <p>小米15 Ultra在设计上也有不少亮点，四曲面屏幕带来更加沉浸的视觉体验，机身材质和配色也更加多样化，满足不同用户的审美需求。</p>
+
+                    <h3>OPPO Find N5——折叠屏手机的"轻薄革命"</h3>
+                    <div th:if="${news.type.name() == 'ELECTRONIC'}">
+                        <img src="https://k.sinaimg.cn/n/sinakd20122/352/w1024h928/20250204/0b44-80f0f76d34f415c0b94a6021c217bc1b.jpg/w700d1q75cms.jpg" alt="急急急！！！" class="news-image-small">
+                    </div>
+                    <p><strong>发布时间：</strong>2025年2月</p>
+                    <p>OPPO Find N5是全球最薄的折叠旗舰手机，展开后厚度不到4mm，折叠状态下不超过10mm。该机型搭载高通骁龙8 Elite移动平台，性能强劲。OPPO在折叠屏技术上的不断创新，使得Find N5在便携性和实用性上达到了新的高度。</p>
+                    <p>Find N5的屏幕表现也非常出色，色彩还原准确，亮度高，对比度强，带来极佳的视觉体验。无论是看视频、玩游戏还是处理工作，都能轻松应对。</p>
+
+                    <div class="edit-info">
+                        编辑：科技记者 负责编辑：科技编辑部
+                    </div>
+                </div>
+                <div class="news-content" th:if="${news.id == 4}">
+                    <div class="news-info">
+                        <strong>时尚新闻：</strong>可持续时尚概念近年来愈发火热。中国国际时装周早已在此议题上不遗余力地推广与倡导多年，致力发挥平台优势，努力拉近产业与可持续时尚、大众与可持续时尚之间的距离。
+                    </div>
+
+                    <p>可持续概念如何落实到衣服上？什么是真正可持续的材料？如何获得专业、准确的可持续时尚资讯？在哪里能买到优质的可持续时装？……随着「可持续时尚」的持续普及，更多的需求和疑问等待回答。</p>
+
+                    <p>本季中国国际时装周上，我们可以看到头部品牌、设计师品牌及行业协会、产业集群等各方力量继续深入可持续命题，从非遗创新、材料创新、生态共建等维度出发，践行让可持续时尚成为"常态化"、"普及化"的愿景。</p>
+
+                    <h3>材料创新引领可持续时尚</h3>
+                    <div th:if="${news.type.name() == 'CLOTHING'}">
+                        <img src="https://q3.itc.cn/images01/20240506/1f08c19d80e14ac7bbb4a7a8494aadc6.png" alt="handsome" class="news-image-small">
+                    </div>
+                    <p>材料本身有一种无形的力量，自己能说话。一个可持续材料不能只停留在研发端，只有让大家用到才能真正实现可持续。本季时装周上，一批设计师和品牌在前沿科技和材料创新的引领下，通过发掘自然资源、开发新型材料、解锁前沿科技，为可持续时尚的"硬核实力"展示了新趋势、新可能。</p>
+
+                    <p>国货高品质羽绒服品牌 坦博尔 本季带来全新科技单品「果冻防晒衣」，新型原纱面料搭载凉感与速干科技，以独特的清凉"果冻"肤感，为户外人带来清爽防晒的出色体验。「户外轻行系列」冲锋羽绒服，采用Dermizax户外科技面料以及「全身接缝压胶」、「银膜蓄热内里」等硬核性能加持，不仅具有暴雨级防水性能，还提供更高的能量回馈，为户外人带来"轻暖透湿"、"无惧风雨"、"一衣三穿"的出色体验，轻松在日常通勤、山野露营与户外徒步之间自由切换，提高衣物使用率、减少能耗。拥有2大研发中心、94件原创版权设计的坦博尔，25年来在功能性服饰领域不懈深耕，用高品质专业守护消费者的每一次户外探索。</p>
+                    <div th:if="${news.type.name() == 'CLOTHING'}">
+                        <img src="https://q7.itc.cn/images01/20240506/0867e36a66414d26a640b791cf66e2ac.jpeg" alt="handsome" class="news-image-small">
+                    </div>
+                    <p>拥有百年军需血统的职业装备巨头 际华 集团与"金顶奖"设计师刘薇强强联手，打造了八大系列、百余套精心设计的职业装大秀，将企业多年的新材料科研成果，实现由B端向C端的转型升级。比如，新型的热敏感半导体发热材料，在严寒的冬日能够自动适应人体温度，为作业人员提供全方位的保护；特种功能执勤服系列采用了高强尼龙细旦66纤维和防水透湿面料，既耐用又舒适……顶尖技术的应用让服装在保持出色性能的同时更加轻盈。际华集团科研能力建设持续增强，为中国职业装产业的蓬勃发展提供助力。</p>
+                    <div th:if="${news.type.name() == 'CLOTHING'}">
+                        <img src="https://q7.itc.cn/images01/20240506/1e9d508420ce474e90f7a322c7c7fe3c.jpeg" alt="handsome" class="news-image-small">
+                    </div>
+                    <p>真维斯·黄刚 秀场上，模特身着运用航天级双向调温纱线、最新研发的发光卫衣，体现了"非遗+科技+时尚"创作思维，将敦煌元素和未来主义相结合，并特别携手高科技纺织企业「蓝美」将航空级调温材质运用到时装设计中，由丝柔空调纱、暖羊恒温纱、调温舒暖纱织造而成的创新面料具有更凉、更暖、更舒适的特性。近年来，真维斯积极推动品牌转型升级，通过与敦煌博物馆开启的奇幻联名之旅、与惠州学院打造的"品牌生态圈协同创新中心"，持续推动品牌"年轻化、时尚化、科技化"进程，塑造时尚行业的可持续未来。</p>
+
+                    <div class="edit-info">
+                        编辑：时尚记者 负责编辑：时尚编辑部
+                    </div>
+                </div>
+                <!-- ID为5的新闻内容 -->
+                <div class="news-content" th:if="${news.id == 5}">
+                    <div class="news-info">
+                        <strong>美食新闻：</strong>青岛日报社／观海新闻9月14日讯 20万市民游客观展，386家企业参展，450个品牌集中亮相，1000款食材、产品及设备火爆登场；500亩青岛嘉年华滨海旅游度假街区全域办节、全域狂欢，客流量同比增长30％，各业态营业额同比增长20％……9月14日，第二十六届中国美食节、第三届中国海洋美食文化节、2025民族美食文化节圆满落幕，"国际海洋美食金名片"熠熠生辉。
+                    </div>
+
+                    <p>本届盛会以"中国味道、海洋产业、民族特色、百姓节日"为主题，由中国饭店协会、中华民族团结进步协会、青岛融合控股集团主办。四大平台、五大展区、六大产业对接、十大餐饮行业论坛、千款特色美食，"展、赛、会、销、研、评"多环节联动，不仅为市民游客带来了多元的美食与文化体验，充分释放大众消费潜力，更极大激活了"节会经济"新动能，实现餐饮产业的全链条贯通。</p>
+
+                    <h3>塑造美食风向标</h3>
+                    <p>三大美食盛会同期举办，2025全国热销地方菜、首发首秀创新菜榜单现场发布，200家企业带来了热销菜、首发首秀菜、新产品新爆品，集中展示了全国各地的经典菜系与地方特色，见证了中餐在传承中创新、在创新中发展的蓬勃生命力，成为美食行业的前沿风向标。</p>
+
+                    <p>本届美食节特别突出海洋元素，展示了超过100道青岛地标食材、海鲜宴席、海洋文化主题餐饮等，推动美食文化与海洋文化创新融合。以青岛本地食材为原料的中华鲅鱼宴、中华琅琊宴首次亮相，来自新区积米崖、琅琊台及周边区域的新鲜食材由专业厨师烹饪制作，鲅鱼水饺、香辣鲅鱼排、剁椒鲅鱼头等19道以鲅鱼为原料的菜品摆满展台，鲜香四溢；琅琊湾海参、泊里西施舌、唐岛湾蛏子等西海岸新区当地海鲜精心烹制的24道美食琳琅满目，令人垂涎。</p>
+                    <div th:if="${news.type.name() == 'FOOD'}">
+                        <img src="http://news.qingdaonews.com/images/2025-09/14/a7f56bd7-443a-49b9-813b-1053a874e095.jpeg" alt="急急急" class="news-image-small">
+                    </div>
+                    <p>新质生产力引领餐饮行业创新发展。2025全国智能炒菜机器人设备展演赛，集中呈现了目前国内领先的智能烹饪设备。10台造型各异的智能炒菜机器人一字排开，1分钟炒出一份辣椒炒肉，3分钟炒制一盘宫保鸡丁。现场观众争相品鉴，亲眼见证智能科技如何让"标准与特色"完美结合，让"科技赋能烹饪"不再是抽象概念。</p>
+                    <div th:if="${news.type.name() == 'FOOD'}">
+                        <img src="http://news.qingdaonews.com/images/2025-09/14/44e7d7f1-eb4b-4393-88cf-3761f65ccf42.jpeg" alt="急急急" class="news-image-small">
+                    </div>
+                    <p>特别举办2025国潮美食展，汇聚知名全国老字号、非遗美食企业，以及文创供应商24家，为行业汇聚"美食＋文创"全链条资源。</p>
+
+                    <p>作为引领餐饮行业纵深发展的年度盛会，本届美食节权威发布了《2025中国餐饮业年度报告》、餐饮业领跑者Top100、《中餐评价规范》国家标准内容等国字号榜单和报告，成为美食行业的前沿风向标。同步召开2025餐饮高质量发展大会、第五届中国外卖节、餐饮企业家年会、餐饮业宴会场景创新论坛等活动，推动业界共同探讨餐饮产业升级、国际化路径、数字化转型等前沿议题。</p>
+                    <div th:if="${news.type.name() == 'FOOD'}">
+                        <img src="http://news.qingdaonews.com/images/2025-09/14/f48ef3cb-5dcd-4250-a218-91f9a8851bef.jpeg" alt="急急急" class="news-image-small">
+                    </div>
+                    <p>持续开展名厨走进嘉年华活动，邀请多位名厨大师走进嘉年华各餐饮商户，就鲁菜、川菜、西餐、融合菜等开展菜品研发、授艺、品鉴等交流活动，把美食节的办节成果创新性留在青岛大地上。</p>
+
+                    <p>据中国饭店协会不完全统计，本届美食节期间，特色食材综合展区、餐饮用品综合展区、餐饮业外贸优品展区、优品中心展区实现了行业上下游产业链资源的高效链接，现场达成合作成果20余项，意向签约金额超1200万元。</p>
+
+                    <div class="edit-info">
+                        编辑：美食记者 负责编辑：美食编辑部
+                    </div>
+                </div>
+                <div class="news-content" th:if="${news.id == 6}">
+                    <div class="news-info">
+                        <strong>健康新闻：</strong>报告摘要
+                    </div>
+
+                    <h3>1. 食品、营养与健康的联系</h3>
+                    <p>饮食会对大众健康产生积极或者负面的影响。一方面，不良的膳食因素与某些特定疾病存在潜在的因果关系，另一方面，虽然饮食有可能导致疾病，但是也有能力改善和平衡居民健康。</p>
+
+                    <h3>2. 国民营养与健康现状及挑战</h3>
+                    <p><strong>1）国民膳食营养结构待优化</strong></p>
+                    <p>膳食营养结构不合理问题，主要体现在以下几方面：</p>
+                    <ul>
+                        <li>谷物摄入量偏多，主粮精细化过度。</li>
+                        <li>除少数省份，水果蔬菜的消费量均存在摄入不足的挑战。</li>
+                        <li>相比于推荐量，乳制品的实际消费量整体偏低。</li>
+                        <li>脂肪、钠摄入超标。</li>
+                    </ul>
+
+                    <p><strong>2）膳食营养相关慢性病形势严峻</strong></p>
+                    <p>不合理膳食是中国人疾病发生和死亡的主要诱因之一。</p>
+                    <ul>
+                        <li>超2.6亿居民患慢病，年轻人群过早面临健康问题成为一种日益普遍的现象。</li>
+                        <li>慢性病的发生不仅影响居民健康，同时也为国民经济带来了沉重负担。</li>
+                    </ul>
+
+                    <p><strong>3）老年膳食营养尚未引起足够重视</strong></p>
+                    <p>老年人群常因口味偏好、咀嚼困难、食欲减退等因素导致饮食单调、营养不良，严重影响身体健康和生活质量。</p>
+                    <p>社会对老年人膳食与营养的关注不足，缺乏相关政策和服务支持，使得老年人群面临膳食与营养问题的风险增加。</p>
+
+                    <p><strong>4）健康焦虑同时积极寻找解决方案</strong></p>
+                    <p>居民健康素养提升、健康饮食意识提高，更多"隐形"健康困扰被关注，营养与健康食品也逐步成为核心健康干预手段。</p>
+
+                    <h3>3. 营养健康食品创新趋势</h3>
+                    <ul>
+                        <li><strong>专业有效</strong>：功效性成为核心关注KPI</li>
+                        <li><strong>返璞归真</strong>：从天然摄取营养健康</li>
+                        <li><strong>轻调慢控</strong>：加减生活方式引领</li>
+                        <li><strong>味的调和</strong>：美味才能持久健康</li>
+                        <li><strong>触手可及</strong>：加速健康食品渗透日常场景</li>
+                    </ul>
+                    <div th:if="${news.type.name() == 'FOOD'}">
+                        <img src="https://picx.zhimg.com/v2-34882a1fc66882470f9aac9056b0c323_1440w.jpg" alt="急急急" class="news-image-small">
+                    </div><div th:if="${news.type.name() == 'FOOD'}">
+                        <img src="                    https://pic2.zhimg.com/v2-dfe950d8aa6df624e1f7d45e6b1e088d_1440w.jpg
+" alt="急急急" class="news-image-small">
+                    </div>
+                    <p>以下是部分报告原文节选，点击下方链接可以查看报告全文：<a href="https://www.douyin.com/business/pc/ecom/trend?from=webapp_ecom_product_report">【抖音电商】2024食品营养健康趋势报告</a></p>
+
+                </div>
+                <!-- 其他新闻显示原始内容 -->
+                <div class="news-content" th:unless="${news.id == 1 or news.id == 2}" th:utext="${news.content}">
+                    <p>这里是新闻的详细内容...</p>
+                </div>
+            </article>
+
+            <div class="related-news">
+                <h3>相关新闻</h3>
+                <div class="list-group">
+                    <a th:each="related : ${relatedNews}"
+                       th:href="@{/news/{id}(id=${related.id})}"
+                       class="list-group-item list-group-item-action">
+                        <h5 th:text="${related.title}">相关新闻标题</h5>
+                        <small class="text-muted" th:text="${related.publishDate} + ' | ' + ${related.author}">发布时间 | 作者</small>
+                    </a>
+                </div>
+            </div>
+
+            <div class="related-news">
+                <h3>热门新闻</h3>
+                <div class="list-group">
+                    <a th:each="hot : ${hotNews}"
+                       th:href="@{/news/{id}(id=${hot.id})}"
+                       class="list-group-item list-group-item-action">
+                        <h5 th:text="${hot.title}">热门新闻标题</h5>
+                        <small class="text-muted" th:text="${hot.publishDate} + ' | ' + ${hot.author}">发布时间 | 作者</small>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <h3>广告位</h3>
+            <div id="ads-container">
+                <!-- 广告将通过JavaScript加载 -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // 从广告API获取广告数据
+    fetch('/api/ads')
+        .then(response => response.json())
+        .then(ads => {
+            const container = document.getElementById('ads-container');
+            if(ads && ads.length > 0) {
+                ads.forEach(ad => {
+                    const adElement = document.createElement('div');
+                    adElement.className = 'ad-container';
+                    adElement.innerHTML = `
+                            <a href="${ad.targetUrl}" target="_blank">
+                                <img src="${ad.imageUrl}" alt="${ad.title}" class="ad-image">
+                                <h5>${ad.title}</h5>
+                                <p>${ad.content}</p>
+                            </a>
+                        `;
+                    container.appendChild(adElement);
+                });
+            } else {
+                container.innerHTML = '<p>暂无广告</p>';
+            }
+        })
+        .catch(error => {
+            console.error('获取广告数据失败:', error);
+            document.getElementById('ads-container').innerHTML = '<p>广告加载失败</p>';
+        });
+</script>
+</body>
+</html>

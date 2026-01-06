@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>投放广告 - 广告投放平台</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-top: 30px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-weight: bold;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .success {
+            color: #28a745;
+            text-align: center;
+            margin-bottom: 15px;
+            background-color: #d4edda;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .error {
+            color: #dc3545;
+            text-align: center;
+            margin-bottom: 15px;
+            background-color: #f8d7da;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .links {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .links a {
+            color: #007bff;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        .links a:hover {
+            text-decoration: underline;
+        }
+        .file-info {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>投放广告</h2>
+
+    <div th:if="${message}" class="success">
+        [[${message}]]
+    </div>
+
+    <div th:if="${error}" class="error">
+        [[${error}]]
+    </div>
+
+    <form method="post" action="/upload" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="name">广告名称</label>
+            <input type="text" id="name" name="name" required placeholder="请输入广告名称">
+        </div>
+
+        <div class="form-group">
+            <label for="category">广告类别</label>
+            <select id="category" name="category" required>
+                <option value="">请选择类别</option>
+                <option th:each="cat : ${categories}"
+                        th:value="${cat}"
+                        th:text="${cat}">
+                </option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="file">选择文件</label>
+            <input type="file" id="file" name="file" required accept="image/*,video/*">
+            <div class="file-info">
+                支持图片和视频文件，最大10MB
+            </div>
+        </div>
+
+        <button type="submit">上传广告</button>
+    </form>
+
+    <div class="links">
+        <a href="/">返回首页</a>
+        <a href="/logout">退出登录</a>
+    </div>
+
+    <div style="margin-top: 30px; padding: 15px; background-color: #f8f9fa; border-radius: 5px;">
+        <h3>API使用说明</h3>
+        <p>广告上传后，可以通过以下API获取：</p>
+        <ul>
+            <li><strong>获取广告内容：</strong> GET /api/ad/{广告ID}/content</li>
+            <li><strong>获取Base64格式：</strong> GET /api/ad/{广告ID}/base64</li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>

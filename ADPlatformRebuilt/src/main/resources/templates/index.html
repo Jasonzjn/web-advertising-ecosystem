@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>广告投放平台</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .menu {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .menu a {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 0 10px;
+            text-decoration: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+        }
+        .menu a:hover {
+            background-color: #0056b3;
+        }
+        .info {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 30px;
+        }
+        .api-info {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>广告投放平台</h1>
+
+    <div class="menu">
+        <th:block th:if="${loggedIn}">
+            <a href="/upload">投放广告</a>
+            <a href="/logout">退出登录</a>
+        </th:block>
+        <th:block th:unless="${loggedIn}">
+            <a href="/login">登录</a>
+            <a href="/register">注册</a>
+        </th:block>
+    </div>
+
+    <div class="api-info">
+        <h3>API接口</h3>
+        <p>合作网站可以通过以下API获取广告：</p>
+        <ul>
+            <li>获取所有广告：GET /api/ads</li>
+            <li>按类别获取广告：GET /api/ads/{category}</li>
+            <li>获取广告内容：GET /api/ad/{id}/content</li>
+            <li>获取Base64格式广告：GET /api/ad/{id}/base64</li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>

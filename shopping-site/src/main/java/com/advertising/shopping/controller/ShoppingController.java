@@ -2,12 +2,15 @@ package com.advertising.shopping.controller;
 
 import com.advertising.shopping.entity.ProductType;
 import com.advertising.shopping.service.AdAPIService;
+import com.advertising.shopping.service.CartService;
 import com.advertising.shopping.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class ShoppingController {
@@ -18,52 +21,61 @@ public class ShoppingController {
     @Autowired
     private ProductService productService;
 
+    @Autowired
+    private CartService cartService;
+
     @GetMapping("/")
-    public String home(Model model) {
+    public String home(Model model, HttpSession session) {
         model.addAttribute("websiteName", "购物网站");
         model.addAttribute("ads", adAPIService.getActiveAds());
         model.addAttribute("products", productService.getAllProducts());
+        model.addAttribute("cart", cartService.getCart(session));
         return "index";
     }
 
     @GetMapping("/products")
-    public String products(Model model) {
+    public String products(Model model, HttpSession session) {
         model.addAttribute("websiteName", "商品列表");
         model.addAttribute("ads", adAPIService.getActiveAds());
         model.addAttribute("products", productService.getAllProducts());
+        model.addAttribute("cart", cartService.getCart(session));
         return "products";
     }
 
     @GetMapping("/electronics")
-    public String electronics(Model model) {
+    public String electronics(Model model, HttpSession session) {
         model.addAttribute("websiteName", "电子产品");
         model.addAttribute("ads", adAPIService.getActiveAds());
         model.addAttribute("products", productService.getProductsByType(ProductType.ELECTRONIC));
+        model.addAttribute("cart", cartService.getCart(session));
         return "electronics";
     }
 
     @GetMapping("/clothing")
-    public String clothing(Model model) {
+    public String clothing(Model model, HttpSession session) {
         model.addAttribute("websiteName", "服装");
         model.addAttribute("ads", adAPIService.getActiveAds());
         model.addAttribute("products", productService.getProductsByType(ProductType.CLOTHING));
+        model.addAttribute("cart", cartService.getCart(session));
         return "clothing";
     }
 
     @GetMapping("/books")
-    public String books(Model model) {
+    public String books(Model model, HttpSession session) {
         model.addAttribute("websiteName", "图书");
         model.addAttribute("ads", adAPIService.getActiveAds());
         model.addAttribute("products", productService.getProductsByType(ProductType.FOOD)); // 用食品类商品作为图书的替代
+        model.addAttribute("cart", cartService.getCart(session));
         return "books";
     }
 
     @GetMapping("/type/{type}")
-    public String productsByType(@PathVariable String type, Model model) {
+    public String productsByType(@PathVariable String type, Model model, HttpSession session) {
         ProductType productType = ProductType.valueOf(type.toUpperCase());
         model.addAttribute("websiteName", getProductTypeName(productType) + "商品");
         model.addAttribute("ads", adAPIService.getActiveAds());
         model.addAttribute("products", productService.getProductsByType(productType));
+        model.addAttribute("cart", cartService.getCart(session));
         return "products";
     }
 

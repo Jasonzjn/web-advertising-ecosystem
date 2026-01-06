@@ -50,7 +50,7 @@ public class NewsService {
 
         newsList.add(new News(6L, "2024食品营养健康趋势报告：怎么吃才健康？",
                 "当下，\"新健康”已经逐渐成为国民食饮消费的新关键词。那怎么才算吃得健康？国民营养健康还面临哪些挑战呢？",
-                "健康记者A", "2024-05-30 13:53:00", NewsType.FOOD,
+                "匿名", "2024-05-30 13:53:00", NewsType.FOOD,
                 "https://picx.zhimg.com/70/v2-3e9331a5131e55b37c28a7d2f658421d_1440w.avis?source=172ae18b&biz_tag=Post"));
     }
 

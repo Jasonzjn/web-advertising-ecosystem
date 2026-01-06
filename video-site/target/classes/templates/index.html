@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${websiteName}">视频网站</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" th:text="${websiteName}">视频网站</a>
+        <div class="navbar-nav ms-auto">
+            <a class="nav-link" href="/videos">首页</a>
+            <a class="nav-link" href="/videos/type/CLOTHING">服装</a>
+            <a class="nav-link" href="/videos/type/ELECTRONIC">电子</a>
+            <a class="nav-link" href="/videos/type/SPORT">运动</a>
+            <a class="nav-link" href="/videos/type/FOOD">食品</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <h1 th:text="${websiteName}">视频网站</h1>
+    <div class="row">
+        <div th:each="video : ${videos}" class="col-md-4 mb-4">
+            <div class="card">
+                <div style="height: 350px; overflow: hidden; display:flex; align-items: center; justify-content: center; background-color: #f8f9fa;">
+                    <img th:src="${video.thumbnailUrl}" class="card-img-top" alt="视频缩略图" style="max-height: 100%; max-width: 100%; object-fit: contain;">
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${video.title}">视频标题</h5>
+                    <p class="card-text" th:text="${video.description}">视频描述</p>
+                    <a th:href="@{/videos/{id}(id=${video.id})}" class="btn btn-primary">观看视频</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

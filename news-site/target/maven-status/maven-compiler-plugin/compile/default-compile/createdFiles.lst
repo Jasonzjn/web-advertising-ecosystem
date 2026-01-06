@@ -3,3 +3,8 @@ com\advertising\news\controller\NewsController.class
 com\advertising\news\controller\AdController.class
 com\advertising\news\NewsSiteApplication.class
 com\advertising\news\dto\AdResponse.class
+com\advertising\news\controller\NewsController$1.class
+com\advertising\news\service\NewsService.class
+com\advertising\news\entity\NewsType.class
+com\advertising\news\entity\News$1.class
+com\advertising\news\entity\News.class

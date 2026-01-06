@@ -1,0 +1,6 @@
+com\advertising\video\controller\VideoController.class
+com\advertising\video\entity\VideoType.class
+com\advertising\video\service\VideoService.class
+com\advertising\video\config\WebConfig.class
+com\advertising\video\entity\Video.class
+com\advertising\video\VideoSiteApplication.class

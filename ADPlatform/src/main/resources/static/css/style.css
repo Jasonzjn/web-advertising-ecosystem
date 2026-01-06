@@ -16,7 +16,7 @@ box{
     box-sizing: border-box;
     padding: 10%;
     display: flex;
-    background-color: rgba(87, 255, 171, 0.21);
+    background-color: rgba(99, 255, 232, 0.18);
     #border: 2px solid #791f1f;
     border-radius: 10px;
     font-size: 1em;

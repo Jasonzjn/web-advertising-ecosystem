@@ -13,8 +13,23 @@ public class Advertisement {
     @Column(nullable = false)
     private String name;
 
-    @Column(columnDefinition = "TEXT")
-    private String content; // 存储图片URL或视频URL
+    @Column(length = 500)
+    private String description;
+
+    // 存储文件二进制数据
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
+    @Column(name = "file_data", columnDefinition = "LONGBLOB")
+    private byte[] fileData;
+
+    // 文件原始名称
+    private String originalFileName;
+
+    // 文件类型（MIME类型）
+    private String contentType;
+
+    // 文件大小（字节）
+    private Long fileSize;
 
     @Enumerated(EnumType.STRING)
     private AdType adType;
@@ -27,14 +42,15 @@ public class Advertisement {
     private boolean active = true;
     private int impressions = 0;
     private int clicks = 0;
+    private String type;
 
     public enum AdType {
-        BANNER, // 横幅广告
-        VIDEO,  // 视频广告
-        TEXT,   // 文字广告
-        POPUP   // 弹窗广告
+        IMAGE,      // 图片广告
+        VIDEO,      // 视频广告
+        GIF,        // GIF广告
+        HTML5,      // HTML5广告
+        TEXT        // 文字广告
     }
-
     // Getters and Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
@@ -42,8 +58,20 @@ public class Advertisement {
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
 
-    public String getContent() { return content; }
-    public void setContent(String content) { this.content = content; }
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
+
+    public byte[] getFileData() { return fileData; }
+    public void setFileData(byte[] fileData) { this.fileData = fileData; }
+
+    public String getOriginalFileName() { return originalFileName; }
+    public void setOriginalFileName(String originalFileName) { this.originalFileName = originalFileName; }
+
+    public String getContentType() { return contentType; }
+    public void setContentType(String contentType) { this.contentType = contentType; }
+
+    public Long getFileSize() { return fileSize; }
+    public void setFileSize(Long fileSize) { this.fileSize = fileSize; }
 
     public AdType getAdType() { return adType; }
     public void setAdType(AdType adType) { this.adType = adType; }
@@ -62,4 +90,11 @@ public class Advertisement {
 
     public int getClicks() { return clicks; }
     public void setClicks(int clicks) { this.clicks = clicks; }
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 }

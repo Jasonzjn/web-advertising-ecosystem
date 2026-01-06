@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${websiteName}">视频详情</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            margin-bottom: 20px;
+        }
+
+        video {
+            width: 100%;
+            height: auto;
+        }
+
+        #ad-container {
+            display: none; /* 隐藏广告容器 */
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" th:text="${websiteName}">视频详情</a>
+        <div class="navbar-nav ms-auto">
+            <a class="nav-link" href="/videos">首页</a>
+            <a class="nav-link" th:href="@{/videos/type/{type}(type=${video.type})}" th:text="${video.type}">分类</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <div class="video-container">
+        <video id="videoPlayer" controls width="100%">
+            <!-- 根据视频ID直接写死视频链接 -->
+            <source th:if="${video.id == 1}" src="/videos/clothing.mp4" type="video/mp4">
+            <source th:if="${video.id == 2}" src="/videos/fashion.mp4" type="video/mp4">
+            <source th:if="${video.id == 3}" src="/videos/phone.mp4" type="video/mp4">
+            <source th:if="${video.id == 4}" src="/videos/computer.mp4" type="video/mp4">
+            <source th:if="${video.id == 5}" src="/videos/exercise.mp4" type="video/mp4">
+            <source th:if="${video.id == 6}" src="/videos/football.mp4" type="video/mp4">
+            <source th:if="${video.id == 7}" src="/videos/dish.mp4" type="video/mp4">
+            <source th:if="${video.id == 8}" src="/videos/bake.mp4" type="video/mp4">
+            您的浏览器不支持视频播放。
+        </video>
+        <!-- 广告容器已隐藏 -->
+        <div id="ad-container" style="display: none;">
+            <h4>广告</h4>
+            <p id="ad-text">正在加载广告...</p>
+            <button id="close-ad" class="btn btn-secondary">关闭广告</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <h2 th:text="${video.title}">视频标题</h2>
+            <p th:text="${video.description}">视频描述</p>
+        </div>
+        <div class="col-md-4">
+            <h4>分类</h4>
+            <p th:text="${video.type}">分类</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const videoPlayer = document.getElementById('videoPlayer');
+
+        // 禁用所有广告相关功能
+        console.log("广告功能已禁用，视频可以正常播放");
+
+        // 确保视频可以正常播放
+        videoPlayer.addEventListener('loadeddata', function() {
+            console.log("视频已加载完成，可以播放");
+        });
+
+        videoPlayer.addEventListener('error', function(e) {
+            console.error("视频播放错误:", e);
+            console.log("视频路径:", videoPlayer.querySelector('source').src);
+        });
+    });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

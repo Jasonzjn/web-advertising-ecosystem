@@ -17,6 +17,7 @@
         <module>ad-service</module>
         <module>news-site</module>
         <module>shopping-site</module>
+        <module>video-site/</module>
     </modules>
 
     <properties>

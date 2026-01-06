@@ -16,6 +16,9 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="ad-service" options="-parameters" />
+      <module name="news-site" options="-parameters" />
+      <module name="shopping-site" options="-parameters" />
       <module name="video-site" options="-parameters" />
     </option>
   </component>

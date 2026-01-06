@@ -1,8 +1,8 @@
-D:\web-advertising-ecosystem\news-site\src\main\java\com\advertising\news\controller\AdController.java
-D:\web-advertising-ecosystem\news-site\src\main\java\com\advertising\news\controller\NewsController.java
-D:\web-advertising-ecosystem\news-site\src\main\java\com\advertising\news\dto\AdResponse.java
-D:\web-advertising-ecosystem\news-site\src\main\java\com\advertising\news\entity\News.java
-D:\web-advertising-ecosystem\news-site\src\main\java\com\advertising\news\entity\NewsType.java
-D:\web-advertising-ecosystem\news-site\src\main\java\com\advertising\news\NewsSiteApplication.java
 D:\web-advertising-ecosystem\news-site\src\main\java\com\advertising\news\service\AdAPIService.java
+D:\web-advertising-ecosystem\news-site\src\main\java\com\advertising\news\controller\NewsController.java
+D:\web-advertising-ecosystem\news-site\src\main\java\com\advertising\news\controller\AdController.java
 D:\web-advertising-ecosystem\news-site\src\main\java\com\advertising\news\service\NewsService.java
+D:\web-advertising-ecosystem\news-site\src\main\java\com\advertising\news\NewsSiteApplication.java
+D:\web-advertising-ecosystem\news-site\src\main\java\com\advertising\news\entity\News.java
+D:\web-advertising-ecosystem\news-site\src\main\java\com\advertising\news\dto\AdResponse.java
+D:\web-advertising-ecosystem\news-site\src\main\java\com\advertising\news\entity\NewsType.java

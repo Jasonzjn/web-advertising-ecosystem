@@ -38,8 +38,8 @@ public class MainController {
                            @RequestParam String password,
                            @RequestParam String email,
                            Model model) {
-        boolean success = authService.register(username, password, email);
-        if (success) {
+        User success = authService.register(username, password, email);
+        if (success!=null) {
             model.addAttribute("message", "注册成功，请登录");
             return "login";
         } else {

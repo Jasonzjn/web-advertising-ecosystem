@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface AdRepository extends JpaRepository<Advertisement, Long> {
     List<Advertisement> findByUser(User user);
-    List<Advertisement> findByActiveTrue();
+    //List<Advertisement> findByActiveTrue();
     List<Advertisement> findByCategory(Advertisement.Category category);
 
 }

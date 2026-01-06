@@ -8,7 +8,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 @Service
 public class AdService {
@@ -63,5 +66,42 @@ public class AdService {
     public String getAdDataUri(Long id) {
         Advertisement ad = getAdById(id);
         return ad != null ? ad.getDataUri() : null;
+    }
+    /**
+     * 读取文件类型存在缺陷
+     */
+    public Advertisement getAdByPreference(Map<String,Integer> preference,String fileType){
+
+        List<Advertisement> allAds = getAllAds();
+        Integer high = 0;
+        String target = null;
+        Random random = new Random();
+        Advertisement result;
+        if(preference.isEmpty()){
+            result = allAds.get(random.nextInt(allAds.size()));
+            return result;
+        }
+        else {
+            for(Map.Entry<String,Integer> entry : preference.entrySet()){
+                if (entry.getValue()>high){
+                    high = entry.getValue();
+                    target = entry.getKey();
+                }
+            }
+        }
+
+        List<Advertisement> ads = new ArrayList<>();
+        for(Advertisement advertisement : allAds){
+            if(advertisement.getCategory().toString().matches(target)){
+                ads.add(advertisement);
+            }
+        }
+        for(Advertisement ad : ads){
+            if(!ad.getFileType().matches(fileType)){
+                ads.iterator().remove();
+            }
+        }
+        result = ads.get(random.nextInt(ads.size()));
+        return result;
     }
 }

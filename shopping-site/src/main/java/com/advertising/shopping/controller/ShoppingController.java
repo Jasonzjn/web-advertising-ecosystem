@@ -1,7 +1,6 @@
 package com.advertising.shopping.controller;
 
 import com.advertising.shopping.entity.ProductType;
-import com.advertising.shopping.service.AdAPIService;
 import com.advertising.shopping.service.CartService;
 import com.advertising.shopping.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;

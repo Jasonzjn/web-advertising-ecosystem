@@ -19,7 +19,19 @@
         }
 
         #ad-container {
-            display: none; /* 隐藏广告容器 */
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+
+        .ad-preference-buttons {
+            margin: 15px 0;
+        }
+        .ad-preference-buttons button {
+            margin-right: 10px;
+            margin-bottom: 5px;
         }
     </style>
 </head>
@@ -39,7 +51,6 @@
         <video id="videoPlayer" controls width="100%">
             <!-- 根据视频ID直接写死视频链接 -->
             <source th:if="${video.id == 1}" src="/videos/clothing.mp4" type="video/mp4">
-            <source th:if="${video.id == 2}" src="/videos/fashion.mp4" type="video/mp4">
             <source th:if="${video.id == 3}" src="/videos/phone.mp4" type="video/mp4">
             <source th:if="${video.id == 4}" src="/videos/computer.mp4" type="video/mp4">
             <source th:if="${video.id == 5}" src="/videos/exercise.mp4" type="video/mp4">
@@ -48,12 +59,6 @@
             <source th:if="${video.id == 8}" src="/videos/bake.mp4" type="video/mp4">
             您的浏览器不支持视频播放。
         </video>
-        <!-- 广告容器已隐藏 -->
-        <div id="ad-container" style="display: none;">
-            <h4>广告</h4>
-            <p id="ad-text">正在加载广告...</p>
-            <button id="close-ad" class="btn btn-secondary">关闭广告</button>
-        </div>
     </div>
 
     <div class="row">
@@ -64,16 +69,114 @@
         <div class="col-md-4">
             <h4>分类</h4>
             <p th:text="${video.type}">分类</p>
+
+            <h4>广告类型偏好</h4>
+            <div class="ad-preference-buttons">
+                <button class="btn btn-primary btn-sm" onclick="setAdPreference('clothing')">服装</button>
+                <button class="btn btn-success btn-sm" onclick="setAdPreference('electronic')">电子</button>
+                <button class="btn btn-warning btn-sm" onclick="setAdPreference('food')">食品</button>
+                <button class="btn btn-danger btn-sm" onclick="setAdPreference('sports')">运动</button>
+            </div>
         </div>
+    </div>
+
+    <!-- 广告容器 -->
+    <div id="ad-container">
+        <h4>相关广告</h4>
+        <div id="ad-content">正在加载广告...</div>
     </div>
 </div>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const videoPlayer = document.getElementById('videoPlayer');
+        const adContent = document.getElementById('ad-content');
 
-        // 禁用所有广告相关功能
-        console.log("广告功能已禁用，视频可以正常播放");
+        // 获取当前视频的类型
+        function getCurrentVideoType() {
+            const currentUrl = window.location.href;
+            const videoIdMatch = currentUrl.match(/\/videos\/(\d+)/);
+            if (videoIdMatch) {
+                const videoId = parseInt(videoIdMatch[1]);
+                // 根据视频ID映射到类型
+                if ([1, 2].includes(videoId)) return 'clothing'; // 视频1,2是clothing类型
+                if ([3, 4].includes(videoId)) return 'electronic'; // 视频3,4是electronic类型
+                if ([5, 6].includes(videoId)) return 'sports'; // 视频5,6是sports类型
+                if ([7, 8].includes(videoId)) return 'food'; // 视频7,8是food类型
+            }
+            return 'all'; // 默认返回所有广告
+        }
+
+        // 加载广告
+        function loadAds() {
+            // 获取当前视频类型以获取相关广告
+            const videoType = getCurrentVideoType();
+
+            let fetchUrl;
+            if (videoType !== 'all') {
+                // 根据视频类型获取广告
+                fetchUrl = `/api/ads/type/${videoType}`;
+            } else {
+                // 获取所有广告
+                fetchUrl = '/api/ads';
+            }
+
+            // 调用广告API获取广告内容
+            fetch(fetchUrl)
+                .then(response => response.json())
+                .then(data => {
+                    if (data && data.length > 0) {
+                        // 随机选择一个广告展示
+                        const randomAd = data[Math.floor(Math.random() * data.length)];
+                        adContent.innerHTML = `
+                            <a href="${randomAd.targetUrl}" target="_blank">
+                                <img src="${randomAd.imageUrl}" alt="${randomAd.title}" style="max-width: 100%; height: auto;">
+                                <h5>${randomAd.title}</h5>
+                                <p>${randomAd.content}</p>
+                            </a>
+                        `;
+                    } else {
+                        adContent.textContent = '暂无广告';
+                    }
+                })
+                .catch(error => {
+                    console.error('获取广告时出错:', error);
+                    adContent.textContent = '广告加载失败';
+                });
+        }
+
+        // 设置广告偏好
+        function setAdPreference(adType) {
+            fetch('/api/ads/preference?adType=' + adType, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+                .then(response => response.json())
+                .then(ads => {
+                    if(ads && ads.length > 0) {
+                        // 随机选择一个广告展示
+                        const randomAd = ads[Math.floor(Math.random() * ads.length)];
+                        adContent.innerHTML = `
+                        <a href="${randomAd.targetUrl}" target="_blank">
+                            <img src="${randomAd.imageUrl}" alt="${randomAd.title}" style="max-width: 100%; height: auto;">
+                            <h5>${randomAd.title}</h5>
+                            <p>${randomAd.content}</p>
+                        </a>
+                    `;
+                    } else {
+                        adContent.innerHTML = '暂无此类广告';
+                    }
+                })
+                .catch(error => {
+                    console.error('获取特定类型广告失败:', error);
+                    adContent.textContent = '广告加载失败';
+                });
+        }
+
+        // 页面加载时获取广告
+        loadAds();
 
         // 确保视频可以正常播放
         videoPlayer.addEventListener('loadeddata', function() {

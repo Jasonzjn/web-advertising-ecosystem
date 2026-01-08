@@ -15,9 +15,9 @@ import java.util.List;
 @Controller
 @RequestMapping("/videos")
 public class VideoController {
-
     @Autowired
     private VideoService videoService;
+
 
     @GetMapping
     public String index(Model model) {

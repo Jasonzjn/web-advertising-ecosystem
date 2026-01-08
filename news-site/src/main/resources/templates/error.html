@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>错误 - 新闻网站</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" th:text="${websiteName}">新闻网站</a>
+        <div class="navbar-nav">
+            <a class="nav-link" href="/news">首页</a>
+            <a class="nav-link" href="/type/SPORT">体育</a>
+            <a class="nav-link" href="/type/ELECTRONIC">科技</a>
+            <a class="nav-link" href="/type/CLOTHING">时尚</a>
+            <a class="nav-link" href="/type/FOOD">美食</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6 text-center">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="text-danger">出错了</h1>
+                    <p th:text="${message}">抱歉，页面出现了错误。</p>
+                    <a href="/news" class="btn btn-primary">返回首页</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

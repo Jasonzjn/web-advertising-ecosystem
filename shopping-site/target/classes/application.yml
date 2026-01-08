@@ -22,10 +22,6 @@ spring:
       enabled: true
       path: /h2-console
 
-ad:
-  service:
-    url: http://localhost:8081
-
 logging:
   level:
     com.advertising.shopping: DEBUG

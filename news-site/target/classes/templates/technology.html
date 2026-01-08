@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>科技新闻 - 新闻网站</title>
+    <title th:text="${websiteName}">科技新闻</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         .ad-container {
@@ -12,31 +12,53 @@
             margin: 10px 0;
             background-color: #f9f9f9;
             border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .ad-container:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
         .ad-image {
             max-width: 100%;
             height: auto;
         }
+        .ad-type {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            margin-bottom: 5px;
+        }
+        .ad-type-food { background-color: #ffeb3b; color: #333; }
+        .ad-type-clothing { background-color: #e91e63; color: white; }
+        .ad-type-electronic { background-color: #2196f3; color: white; }
+        .ad-type-sport { background-color: #4caf50; color: white; }
         .news-item {
             border-bottom: 1px solid #eee;
-            padding: 15px 0;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
         }
-        .news-type-badge {
+        .news-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        .preference-info {
+            background-color: #e8f5e8;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            font-size: 0.9em;
+        }
+        .preference-score {
+            display: inline-block;
+            margin: 0 10px 5px 0;
+            padding: 2px 8px;
+            background-color: #4caf50;
+            color: white;
+            border-radius: 3px;
             font-size: 0.8em;
-            padding: 0.25em 0.5em;
-            border-radius: 0.25rem;
-            margin-left: 10px;
-        }
-        .sport-badge { background-color: #d4edda; color: #155724; }
-        .electronic-badge { background-color: #cce5ff; color: #004085; }
-        .clothing-badge { background-color: #f8d7da; color: #721c24; }
-        .food-badge { background-color: #fff3cd; color: #856404; }
-        .news-link {
-            text-decoration: none;
-            color: inherit;
-        }
-        .news-link:hover {
-            text-decoration: none;
         }
     </style>
 </head>
@@ -46,35 +68,45 @@
         <a class="navbar-brand" th:text="${websiteName}">新闻网站</a>
         <div class="navbar-nav">
             <a class="nav-link" href="/news">首页</a>
-            <a class="nav-link" href="/politics">政治</a>
-            <a class="nav-link" href="/sports">体育</a>
-            <a class="nav-link" href="/technology">科技</a>
+            <a class="nav-link" href="/type/SPORT">体育</a>
+            <a class="nav-link" href="/type/ELECTRONIC">科技</a>
+            <a class="nav-link" href="/type/CLOTHING">时尚</a>
+            <a class="nav-link" href="/type/FOOD">美食</a>
         </div>
     </div>
 </nav>
 
 <div class="container mt-4">
-    <h1>科技新闻</h1>
+    <h1 class="mb-4" th:text="${websiteName}">科技新闻</h1>
 
     <div class="row">
         <div class="col-md-8">
-            <div class="news-item" th:each="news : ${newsList}">
-                <h3>
-                    <span th:text="${news.title}">新闻标题</span>
-                    <span th:switch="${news.type}" class="news-type-badge">
-                        <span th:case="SPORT" class="news-type-badge sport-badge">体育</span>
-                        <span th:case="ELECTRONIC" class="news-type-badge electronic-badge">科技</span>
-                        <span th:case="CLOTHING" class="news-type-badge clothing-badge">时尚</span>
-                        <span th:case="FOOD" class="news-type-badge food-badge">美食</span>
-                    </span>
-                </h3>
-                <p th:text="${news.content}">这是新闻内容的摘要，详细介绍新闻的主要内容和要点，让读者了解事件的全貌...</p>
-                <small class="text-muted" th:text="'发布时间：' + ${news.publishDate} + ' | 作者：' + ${news.author}">发布时间：2023-06-15 | 作者：记者A</small>
+            <h2>科技新闻</h2>
+            <div th:each="news : ${newsList}" class="news-item">
+                <div class="d-flex">
+                    <div class="flex-grow-1">
+                        <h3>
+                            <a th:href="@{/news/{id}(id=${news.id})}" th:text="${news.title}" class="text-decoration-none">新闻标题</a>
+                        </h3>
+                        <p th:text="${news.content}">这是新闻内容的摘要，简要介绍新闻的主要内容和要点...</p>
+                        <small class="text-muted" th:text="'发布时间：' + ${news.publishDate} + ' | 作者：' + ${news.author}">发布时间：2023-06-15 | 作者：记者A</small>
+                    </div>
+                </div>
             </div>
         </div>
 
         <div class="col-md-4">
             <h3>广告位</h3>
+            <div class="preference-info">
+                <strong>广告偏好：</strong>
+                <div id="preference-scores">
+                    <span class="preference-score">美食: <span id="food-score">50</span></span>
+                    <span class="preference-score">时尚: <span id="clothing-score">50</span></span>
+                    <span class="preference-score">科技: <span id="electronic-score">50</span></span>
+                    <span class="preference-score">体育: <span id="sport-score">50</span></span>
+                </div>
+                <button onclick="resetPreferences()" class="btn btn-sm btn-outline-secondary mt-2">重置偏好</button>
+            </div>
             <div id="ads-container">
                 <!-- 广告将通过JavaScript加载 -->
             </div>
@@ -84,32 +116,89 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    // 从广告API获取广告数据
-    fetch('/api/ads')
-        .then(response => response.json())
-        .then(ads => {
-            const container = document.getElementById('ads-container');
-            if(ads && ads.length > 0) {
-                ads.forEach(ad => {
-                    const adElement = document.createElement('div');
-                    adElement.className = 'ad-container';
-                    adElement.innerHTML = `
-                            <a href="${ad.targetUrl}" target="_blank">
+    // 页面加载时获取偏好排序的广告
+    loadAdsWithPreference();
+
+    // 从广告API获取偏好排序的广告数据
+    function loadAdsWithPreference() {
+        fetch('http://10.100.164.32:8080/get-ad?preference=&fileType=')
+            .then(response => response.json())
+            .then(ads => {
+                const container = document.getElementById('ads-container');
+                container.innerHTML = '';
+
+                if(ads && ads.length > 0) {
+                    ads.forEach(ad => {
+                        const adElement = document.createElement('div');
+                        adElement.className = 'ad-container';
+                        adElement.setAttribute('data-ad-id', ad.id);
+                        adElement.setAttribute('data-ad-type', ad.adType);
+
+                        // 根据广告类型设置样式
+                        const typeClass = getAdTypeClass(ad.adType);
+                        const typeName = getAdTypeName(ad.adType);
+
+                        adElement.innerHTML = `
+                            <div class="ad-type ${typeClass}">${typeName}</div>
+                            <a href="${ad.targetUrl}" target="_blank" onclick="handleAdClick('${ad.adType}', ${ad.id}); return true;">
                                 <img src="${ad.imageUrl}" alt="${ad.title}" class="ad-image">
                                 <h5>${ad.title}</h5>
                                 <p>${ad.content}</p>
                             </a>
                         `;
-                    container.appendChild(adElement);
-                });
-            } else {
-                container.innerHTML = '<p>暂无广告</p>';
-            }
+                        container.appendChild(adElement);
+                    });
+                } else {
+                    container.innerHTML = '<p>暂无广告</p>';
+                }
+            })
+            .catch(error => {
+                console.error('获取广告数据失败:', error);
+                document.getElementById('ads-container').innerHTML = '<p>广告加载失败</p>';
+            });
+
+        // 同时更新偏好分数显示
+        updatePreferenceScores();
+    }
+
+
+    // 重置偏好
+    function resetPreferences() {
+        fetch('http://10.100.164.32:8080/get-ad?preference=&fileType=', {
+            method: 'POST'
         })
-        .catch(error => {
-            console.error('获取广告数据失败:', error);
-            document.getElementById('ads-container').innerHTML = '<p>广告加载失败</p>';
-        });
+            .then(response => response.json())
+            .then(data => {
+                console.log('偏好重置成功:', data);
+                // 重新加载广告
+                loadAdsWithPreference();
+            })
+            .catch(error => {
+                console.error('偏好重置失败:', error);
+            });
+    }
+
+    // 获取广告类型对应的CSS类名
+    function getAdTypeClass(adType) {
+        switch(adType) {
+            case 'FOOD': return 'ad-type-food';
+            case 'CLOTHING': return 'ad-type-clothing';
+            case 'ELECTRONIC': return 'ad-type-electronic';
+            case 'SPORT': return 'ad-type-sport';
+            default: return '';
+        }
+    }
+
+    // 获取广告类型的中文名称
+    function getAdTypeName(adType) {
+        switch(adType) {
+            case 'FOOD': return '美食';
+            case 'CLOTHING': return '时尚';
+            case 'ELECTRONIC': return '科技';
+            case 'SPORT': return '体育';
+            default: return adType;
+        }
+    }
 </script>
 </body>
 </html>

@@ -1,0 +1,21 @@
+2026-01-06 22:32:09 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "ADS" already exists; SQL statement:
+CREATE TABLE ads ( id BIGINT AUTO_INCREMENT PRIMARY KEY, title VARCHAR(255) NOT NULL, content VARCHAR(1000), image_url VARCHAR(255) NOT NULL, target_url VARCHAR(255) NOT NULL, target_website VARCHAR(50), ad_type VARCHAR(50), start_date TIMESTAMP, end_date TIMESTAMP, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ) [42101-212]
+2026-01-06 22:32:24 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "ADS" already exists; SQL statement:
+CREATE TABLE ads ( id BIGINT AUTO_INCREMENT PRIMARY KEY, title VARCHAR(255) NOT NULL, content VARCHAR(1000), image_url VARCHAR(255) NOT NULL, target_url VARCHAR(255) NOT NULL, target_website VARCHAR(50), ad_type VARCHAR(50), start_date TIMESTAMP, end_date TIMESTAMP, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ) [42101-212]
+2026-01-06 22:32:32 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "ADS" already exists; SQL statement:
+CREATE TABLE ads ( id BIGINT AUTO_INCREMENT PRIMARY KEY, title VARCHAR(255) NOT NULL, content VARCHAR(1000), image_url VARCHAR(255) NOT NULL, target_url VARCHAR(255) NOT NULL, target_website VARCHAR(50), ad_type VARCHAR(50), start_date TIMESTAMP, end_date TIMESTAMP, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ) [42101-212]
+2026-01-06 22:33:17 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "ADS" already exists; SQL statement:
+CREATE TABLE ads ( id BIGINT AUTO_INCREMENT PRIMARY KEY, title VARCHAR(255) NOT NULL, content VARCHAR(1000), image_url VARCHAR(255) NOT NULL, target_url VARCHAR(255) NOT NULL, target_website VARCHAR(50), ad_type VARCHAR(50), start_date TIMESTAMP, end_date TIMESTAMP, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ) [42101-212]
+2026-01-06 22:33:32 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "ADS" already exists; SQL statement:
+CREATE TABLE ads ( id BIGINT AUTO_INCREMENT PRIMARY KEY, title VARCHAR(255) NOT NULL, content VARCHAR(1000), image_url VARCHAR(255) NOT NULL, target_url VARCHAR(255) NOT NULL, target_website VARCHAR(50), ad_type VARCHAR(50), start_date TIMESTAMP, end_date TIMESTAMP, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ) [42101-212]
+2026-01-06 22:33:42 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "ADS" already exists; SQL statement:
+CREATE TABLE ads ( id BIGINT AUTO_INCREMENT PRIMARY KEY, title VARCHAR(255) NOT NULL, content VARCHAR(1000), image_url VARCHAR(255) NOT NULL, target_url VARCHAR(255) NOT NULL, target_website VARCHAR(50), ad_type VARCHAR(50), start_date TIMESTAMP, end_date TIMESTAMP, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ) [42101-212]
+2026-01-06 22:41:37 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "[*]slect *from ads"; expected "SAVEPOINT, SCRIPT, SHUTDOWN, SHOW"; SQL statement:
+slect *from ads [42001-212]

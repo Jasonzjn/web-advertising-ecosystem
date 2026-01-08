@@ -12,11 +12,28 @@
             margin: 10px 0;
             background-color: #f9f9f9;
             border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .ad-container:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
         .ad-image {
             max-width: 100%;
             height: auto;
         }
+        .ad-type {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            margin-bottom: 5px;
+        }
+        .ad-type-food { background-color: #ffeb3b; color: #333; }
+        .ad-type-clothing { background-color: #e91e63; color: white; }
+        .ad-type-electronic { background-color: #2196f3; color: white; }
+        .ad-type-sport { background-color: #4caf50; color: white; }
         .news-detail-content {
             line-height: 1.8;
             font-size: 1.1em;
@@ -87,6 +104,22 @@
             border-radius: 4px;
             margin: 10px 0;
         }
+        .preference-info {
+            background-color: #e8f5e8;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            font-size: 0.9em;
+        }
+        .preference-score {
+            display: inline-block;
+            margin: 0 10px 5px 0;
+            padding: 2px 8px;
+            background-color: #4caf50;
+            color: white;
+            border-radius: 3px;
+            font-size: 0.8em;
+        }
     </style>
 </head>
 <body>
@@ -142,7 +175,7 @@
                         <p><strong>阿根廷 7-5 法国</strong>（常规时间2-2，加时赛1-1，点球大战4-2）</p>
                         <p>阿根廷时隔36年再夺世界杯冠军，队史第三次捧起大力神杯</p>
                     </div>
-                    <div th:if="${news.type.name() == 'SPORT'}">
+                    <div th:if="${news.type.toString() == 'SPORT'}">
                         <img src="https://inews.gtimg.com/news_bt/OWZMIzo66FfF04z3qAofgMFtqnoKPZFFbl90UtvTZ2fSoAA/641" alt="明星" class="news-image-small">
                     </div>
                     <h4>纪录时刻：</h4>
@@ -187,11 +220,10 @@
                         <p>第三轮，琼阿梅尼踢偏了，帕雷德斯主罚命中；</p>
                         <p>第四轮，穆阿尼命中，蒙铁尔主罚命中，阿根廷队点球大战4-2获胜；</p>
                     </div>
-                    <div th:if="${news.type.name() == 'SPORT'}">
-                        <img src="https://inews.gtimg.com/news_bt/OZuzTPwyjeOhzOJj3a3LLwbqAE8KiNHwpG7SWd5o9fvasAA/641"alt="明星" class="news-image-small">
-                </div>
+                    <div th:if="${news.type.toString() == 'SPORT'}">
+                        <img src="https://inews.gtimg.com/news_bt/OZuzTPwyjeOhzOJj3a3LLwbqAE8KiNHwpG7SWd5o9fvasAA/641" alt="明星" class="news-image-small">
+                    </div>
 
-"
                     <div class="player-stats">
                         <h5>首发阵容</h5>
                         <p><strong>法国：</strong>1-洛里、5-孔德、4-瓦拉内、18-于帕梅卡诺、22-特奥、14-拉比奥、8-琼阿梅尼、7-格列兹曼、11-登贝莱、9-吉鲁、10-姆巴佩；</p>
@@ -210,16 +242,16 @@
                     </div>
 
                     <p>巴黎奥运会的筹备工作加快步伐。安保人员对塞纳河沿岸6公里的路线进行了检查。当天，奥运会开幕式彩排在塞纳河上举行，但由于沿岸设置了安全屏障和警察部署，彩排内容没有对外公开。</p>
-                    <div th:if="${news.type.name() == 'SPORT'}">
+                    <div th:if="${news.type.toString() == 'SPORT'}">
                         <img src="https://p5.img.cctvpic.com/photoworkspace/contentimg/2024/07/22/2024072209550748930.png" alt="巴黎奥运会准备就绪" class="news-image-small">
                     </div>
 
                     <p>国际奥委会主席巴赫当天在巴黎表示，奥运会的筹备工作进行得"非常顺利"。不过，在组织世界上最复杂的赛事时，组委会应保持警惕，不忽视任何挑战的出现。巴赫还表示，他对组委会充满信心，相信巴黎奥运会开幕式将给人留下深刻印象。</p>
-                    <div th:if="${news.type.name() == 'SPORT'}">
+                    <div th:if="${news.type.toString() == 'SPORT'}">
                         <img src="https://p5.img.cctvpic.com/photoworkspace/contentimg/2024/07/22/2024072209551558390.png" alt="巴黎奥运会准备就绪" class="news-image-small">
                     </div>
                     <p>巴黎奥运会的开幕式、铁人三项和马拉松游泳比赛都将在塞纳河举办。为确保奥运会安全顺利进行，法国近期围绕塞纳河展开全面安保部署。</p>
-                    <div th:if="${news.type.name() == 'SPORT'}">
+                    <div th:if="${news.type.toString() == 'SPORT'}">
                         <img src="https://p2.img.cctvpic.com/photoworkspace/contentimg/2024/07/22/2024072209552183137.png" alt="巴黎奥运会准备就绪" class="news-image-small">
                     </div>
                     <p>法国军方专门组建一个营，负责保护位于塞纳河东部河段的运动员登船区，该营行动主管表示，士兵们将使用反无人机系统，并与负责保卫巴黎上空的法国空军密切合作。</p>
@@ -235,7 +267,7 @@
                     </div>
 
                     <h3>三星 Galaxy S25 系列——开启2025年的旗舰之战</h3>
-                    <div th:if="${news.type.name() == 'ELECTRONIC'}">
+                    <div th:if="${news.type.toString() == 'ELECTRONIC'}">
                         <img src="https://k.sinaimg.cn/n/sinakd20122/407/w500h707/20250204/e6bd-709e4ca1c9de05ad50bbc7da3664e6e4.jpg/w700d1q75cms.jpg" alt="巴黎奥运会准备就绪" class="news-image-small">
                     </div>
                     <p><strong>发布时间：</strong>2025年1月23日</p>
@@ -243,7 +275,7 @@
                     <p>三星在设计上也下足了功夫，S25系列的外观更加精致，屏幕边框更窄，整体手感更加舒适。尤其是S25 Ultra的摄像头模组设计，既美观又实用，拍照效果更上一层楼。</p>
 
                     <h3>小米15 Ultra——影像旗舰的巅峰之作</h3>
-                    <div th:if="${news.type.name() == 'ELECTRONIC'}">
+                    <div th:if="${news.type.toString() == 'ELECTRONIC'}">
                         <img src="https://k.sinaimg.cn/n/sinakd20122/530/w737h593/20250204/8868-f96f19312c01f38fb89e1823a064a345.jpg/w700d1q75cms.jpg" alt="巴黎奥运会准备就绪" class="news-image-small">
                     </div>
                     <p><strong>发布时间：</strong>2025年2月底</p>
@@ -251,7 +283,7 @@
                     <p>小米15 Ultra在设计上也有不少亮点，四曲面屏幕带来更加沉浸的视觉体验，机身材质和配色也更加多样化，满足不同用户的审美需求。</p>
 
                     <h3>OPPO Find N5——折叠屏手机的"轻薄革命"</h3>
-                    <div th:if="${news.type.name() == 'ELECTRONIC'}">
+                    <div th:if="${news.type.toString() == 'ELECTRONIC'}">
                         <img src="https://k.sinaimg.cn/n/sinakd20122/352/w1024h928/20250204/0b44-80f0f76d34f415c0b94a6021c217bc1b.jpg/w700d1q75cms.jpg" alt="急急急！！！" class="news-image-small">
                     </div>
                     <p><strong>发布时间：</strong>2025年2月</p>
@@ -272,17 +304,17 @@
                     <p>本季中国国际时装周上，我们可以看到头部品牌、设计师品牌及行业协会、产业集群等各方力量继续深入可持续命题，从非遗创新、材料创新、生态共建等维度出发，践行让可持续时尚成为"常态化"、"普及化"的愿景。</p>
 
                     <h3>材料创新引领可持续时尚</h3>
-                    <div th:if="${news.type.name() == 'CLOTHING'}">
+                    <div th:if="${news.type.toString() == 'CLOTHING'}">
                         <img src="https://q3.itc.cn/images01/20240506/1f08c19d80e14ac7bbb4a7a8494aadc6.png" alt="handsome" class="news-image-small">
                     </div>
                     <p>材料本身有一种无形的力量，自己能说话。一个可持续材料不能只停留在研发端，只有让大家用到才能真正实现可持续。本季时装周上，一批设计师和品牌在前沿科技和材料创新的引领下，通过发掘自然资源、开发新型材料、解锁前沿科技，为可持续时尚的"硬核实力"展示了新趋势、新可能。</p>
 
                     <p>国货高品质羽绒服品牌 坦博尔 本季带来全新科技单品「果冻防晒衣」，新型原纱面料搭载凉感与速干科技，以独特的清凉"果冻"肤感，为户外人带来清爽防晒的出色体验。「户外轻行系列」冲锋羽绒服，采用Dermizax户外科技面料以及「全身接缝压胶」、「银膜蓄热内里」等硬核性能加持，不仅具有暴雨级防水性能，还提供更高的能量回馈，为户外人带来"轻暖透湿"、"无惧风雨"、"一衣三穿"的出色体验，轻松在日常通勤、山野露营与户外徒步之间自由切换，提高衣物使用率、减少能耗。拥有2大研发中心、94件原创版权设计的坦博尔，25年来在功能性服饰领域不懈深耕，用高品质专业守护消费者的每一次户外探索。</p>
-                    <div th:if="${news.type.name() == 'CLOTHING'}">
+                    <div th:if="${news.type.toString() == 'CLOTHING'}">
                         <img src="https://q7.itc.cn/images01/20240506/0867e36a66414d26a640b791cf66e2ac.jpeg" alt="handsome" class="news-image-small">
                     </div>
                     <p>拥有百年军需血统的职业装备巨头 际华 集团与"金顶奖"设计师刘薇强强联手，打造了八大系列、百余套精心设计的职业装大秀，将企业多年的新材料科研成果，实现由B端向C端的转型升级。比如，新型的热敏感半导体发热材料，在严寒的冬日能够自动适应人体温度，为作业人员提供全方位的保护；特种功能执勤服系列采用了高强尼龙细旦66纤维和防水透湿面料，既耐用又舒适……顶尖技术的应用让服装在保持出色性能的同时更加轻盈。际华集团科研能力建设持续增强，为中国职业装产业的蓬勃发展提供助力。</p>
-                    <div th:if="${news.type.name() == 'CLOTHING'}">
+                    <div th:if="${news.type.toString() == 'CLOTHING'}">
                         <img src="https://q7.itc.cn/images01/20240506/1e9d508420ce474e90f7a322c7c7fe3c.jpeg" alt="handsome" class="news-image-small">
                     </div>
                     <p>真维斯·黄刚 秀场上，模特身着运用航天级双向调温纱线、最新研发的发光卫衣，体现了"非遗+科技+时尚"创作思维，将敦煌元素和未来主义相结合，并特别携手高科技纺织企业「蓝美」将航空级调温材质运用到时装设计中，由丝柔空调纱、暖羊恒温纱、调温舒暖纱织造而成的创新面料具有更凉、更暖、更舒适的特性。近年来，真维斯积极推动品牌转型升级，通过与敦煌博物馆开启的奇幻联名之旅、与惠州学院打造的"品牌生态圈协同创新中心"，持续推动品牌"年轻化、时尚化、科技化"进程，塑造时尚行业的可持续未来。</p>
@@ -303,17 +335,17 @@
                     <p>三大美食盛会同期举办，2025全国热销地方菜、首发首秀创新菜榜单现场发布，200家企业带来了热销菜、首发首秀菜、新产品新爆品，集中展示了全国各地的经典菜系与地方特色，见证了中餐在传承中创新、在创新中发展的蓬勃生命力，成为美食行业的前沿风向标。</p>
 
                     <p>本届美食节特别突出海洋元素，展示了超过100道青岛地标食材、海鲜宴席、海洋文化主题餐饮等，推动美食文化与海洋文化创新融合。以青岛本地食材为原料的中华鲅鱼宴、中华琅琊宴首次亮相，来自新区积米崖、琅琊台及周边区域的新鲜食材由专业厨师烹饪制作，鲅鱼水饺、香辣鲅鱼排、剁椒鲅鱼头等19道以鲅鱼为原料的菜品摆满展台，鲜香四溢；琅琊湾海参、泊里西施舌、唐岛湾蛏子等西海岸新区当地海鲜精心烹制的24道美食琳琅满目，令人垂涎。</p>
-                    <div th:if="${news.type.name() == 'FOOD'}">
+                    <div th:if="${news.type.toString() == 'FOOD'}">
                         <img src="http://news.qingdaonews.com/images/2025-09/14/a7f56bd7-443a-49b9-813b-1053a874e095.jpeg" alt="急急急" class="news-image-small">
                     </div>
                     <p>新质生产力引领餐饮行业创新发展。2025全国智能炒菜机器人设备展演赛，集中呈现了目前国内领先的智能烹饪设备。10台造型各异的智能炒菜机器人一字排开，1分钟炒出一份辣椒炒肉，3分钟炒制一盘宫保鸡丁。现场观众争相品鉴，亲眼见证智能科技如何让"标准与特色"完美结合，让"科技赋能烹饪"不再是抽象概念。</p>
-                    <div th:if="${news.type.name() == 'FOOD'}">
+                    <div th:if="${news.type.toString() == 'FOOD'}">
                         <img src="http://news.qingdaonews.com/images/2025-09/14/44e7d7f1-eb4b-4393-88cf-3761f65ccf42.jpeg" alt="急急急" class="news-image-small">
                     </div>
                     <p>特别举办2025国潮美食展，汇聚知名全国老字号、非遗美食企业，以及文创供应商24家，为行业汇聚"美食＋文创"全链条资源。</p>
 
                     <p>作为引领餐饮行业纵深发展的年度盛会，本届美食节权威发布了《2025中国餐饮业年度报告》、餐饮业领跑者Top100、《中餐评价规范》国家标准内容等国字号榜单和报告，成为美食行业的前沿风向标。同步召开2025餐饮高质量发展大会、第五届中国外卖节、餐饮企业家年会、餐饮业宴会场景创新论坛等活动，推动业界共同探讨餐饮产业升级、国际化路径、数字化转型等前沿议题。</p>
-                    <div th:if="${news.type.name() == 'FOOD'}">
+                    <div th:if="${news.type.toString() == 'FOOD'}">
                         <img src="http://news.qingdaonews.com/images/2025-09/14/f48ef3cb-5dcd-4250-a218-91f9a8851bef.jpeg" alt="急急急" class="news-image-small">
                     </div>
                     <p>持续开展名厨走进嘉年华活动，邀请多位名厨大师走进嘉年华各餐饮商户，就鲁菜、川菜、西餐、融合菜等开展菜品研发、授艺、品鉴等交流活动，把美食节的办节成果创新性留在青岛大地上。</p>
@@ -364,11 +396,11 @@
                         <li><strong>味的调和</strong>：美味才能持久健康</li>
                         <li><strong>触手可及</strong>：加速健康食品渗透日常场景</li>
                     </ul>
-                    <div th:if="${news.type.name() == 'FOOD'}">
+                    <div th:if="${news.type.toString() == 'FOOD'}">
                         <img src="https://picx.zhimg.com/v2-34882a1fc66882470f9aac9056b0c323_1440w.jpg" alt="急急急" class="news-image-small">
-                    </div><div th:if="${news.type.name() == 'FOOD'}">
-                        <img src="                    https://pic2.zhimg.com/v2-dfe950d8aa6df624e1f7d45e6b1e088d_1440w.jpg
-" alt="急急急" class="news-image-small">
+                    </div>
+                    <div th:if="${news.type.toString() == 'FOOD'}">
+                        <img src="https://pic2.zhimg.com/v2-dfe950d8aa6df624e1f7d45e6b1e088d_1440w.jpg" alt="急急急" class="news-image-small">
                     </div>
                     <p>以下是部分报告原文节选，点击下方链接可以查看报告全文：<a href="https://www.douyin.com/business/pc/ecom/trend?from=webapp_ecom_product_report">【抖音电商】2024食品营养健康趋势报告</a></p>
 
@@ -394,7 +426,7 @@
             <div class="related-news">
                 <h3>热门新闻</h3>
                 <div class="list-group">
-                    <a th:each="hot : ${hotNews}"
+                    <a th:each="hot : ${popularNews}"
                        th:href="@{/news/{id}(id=${hot.id})}"
                        class="list-group-item list-group-item-action">
                         <h5 th:text="${hot.title}">热门新闻标题</h5>
@@ -406,6 +438,16 @@
 
         <div class="col-md-4">
             <h3>广告位</h3>
+            <div class="preference-info">
+                <strong>广告偏好：</strong>
+                <div id="preference-scores">
+                    <span class="preference-score">美食: <span id="food-score">50</span></span>
+                    <span class="preference-score">时尚: <span id="clothing-score">50</span></span>
+                    <span class="preference-score">科技: <span id="electronic-score">50</span></span>
+                    <span class="preference-score">体育: <span id="sport-score">50</span></span>
+                </div>
+                <button onclick="resetPreferences()" class="btn btn-sm btn-outline-secondary mt-2">重置偏好</button>
+            </div>
             <div id="ads-container">
                 <!-- 广告将通过JavaScript加载 -->
             </div>
@@ -415,32 +457,131 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    // 从广告API获取广告数据
-    fetch('/api/ads')
-        .then(response => response.json())
-        .then(ads => {
-            const container = document.getElementById('ads-container');
-            if(ads && ads.length > 0) {
-                ads.forEach(ad => {
-                    const adElement = document.createElement('div');
-                    adElement.className = 'ad-container';
-                    adElement.innerHTML = `
-                            <a href="${ad.targetUrl}" target="_blank">
+    // 页面加载时获取偏好排序的广告
+    loadAdsWithPreference();
+
+    // 从广告API获取偏好排序的广告数据
+    function loadAdsWithPreference() {
+        fetch('/api/ads/preference')
+            .then(response => response.json())
+            .then(ads => {
+                const container = document.getElementById('ads-container');
+                container.innerHTML = '';
+
+                if(ads && ads.length > 0) {
+                    ads.forEach(ad => {
+                        const adElement = document.createElement('div');
+                        adElement.className = 'ad-container';
+                        adElement.setAttribute('data-ad-id', ad.id);
+                        adElement.setAttribute('data-ad-type', ad.adType);
+
+                        // 根据广告类型设置样式
+                        const typeClass = getAdTypeClass(ad.adType);
+                        const typeName = getAdTypeName(ad.adType);
+
+                        adElement.innerHTML = `
+                            <div class="ad-type ${typeClass}">${typeName}</div>
+                            <a href="${ad.targetUrl}" target="_blank" onclick="handleAdClick('${ad.adType}', ${ad.id}); return true;">
                                 <img src="${ad.imageUrl}" alt="${ad.title}" class="ad-image">
                                 <h5>${ad.title}</h5>
                                 <p>${ad.content}</p>
                             </a>
                         `;
-                    container.appendChild(adElement);
-                });
-            } else {
-                container.innerHTML = '<p>暂无广告</p>';
-            }
+                        container.appendChild(adElement);
+                    });
+                } else {
+                    container.innerHTML = '<p>暂无广告</p>';
+                }
+            })
+            .catch(error => {
+                console.error('获取广告数据失败:', error);
+                document.getElementById('ads-container').innerHTML = '<p>广告加载失败</p>';
+            });
+
+        // 同时更新偏好分数显示
+        updatePreferenceScores();
+    }
+
+    // 处理广告点击事件
+    function handleAdClick(adType, adId) {
+        console.log('广告点击:', adType, adId);
+
+        // 发送点击事件到服务器
+        fetch('/api/ads/click', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                adType: adType,
+                adId: adId
+            })
         })
-        .catch(error => {
-            console.error('获取广告数据失败:', error);
-            document.getElementById('ads-container').innerHTML = '<p>广告加载失败</p>';
-        });
+            .then(response => response.json())
+            .then(data => {
+                console.log('偏好更新成功:', data);
+                // 重新加载广告以反映新的排序
+                loadAdsWithPreference();
+            })
+            .catch(error => {
+                console.error('偏好更新失败:', error);
+            });
+    }
+
+    // 更新偏好分数显示
+    function updatePreferenceScores() {
+        fetch('/api/ads/preferences')
+            .then(response => response.json())
+            .then(preferences => {
+                if (preferences) {
+                    document.getElementById('food-score').textContent = preferences.FOOD || 50;
+                    document.getElementById('clothing-score').textContent = preferences.CLOTHING || 50;
+                    document.getElementById('electronic-score').textContent = preferences.ELECTRONIC || 50;
+                    document.getElementById('sport-score').textContent = preferences.SPORT || 50;
+                }
+            })
+            .catch(error => {
+                console.error('获取偏好分数失败:', error);
+            });
+    }
+
+    // 重置偏好
+    function resetPreferences() {
+        fetch('/api/ads/preferences/reset', {
+            method: 'POST'
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('偏好重置成功:', data);
+                // 重新加载广告
+                loadAdsWithPreference();
+            })
+            .catch(error => {
+                console.error('偏好重置失败:', error);
+            });
+    }
+
+    // 获取广告类型对应的CSS类名
+    function getAdTypeClass(adType) {
+        switch(adType) {
+            case 'FOOD': return 'ad-type-food';
+            case 'CLOTHING': return 'ad-type-clothing';
+            case 'ELECTRONIC': return 'ad-type-electronic';
+            case 'SPORT': return 'ad-type-sport';
+            default: return '';
+        }
+    }
+
+    // 获取广告类型的中文名称
+    function getAdTypeName(adType) {
+        switch(adType) {
+            case 'FOOD': return '美食';
+            case 'CLOTHING': return '时尚';
+            case 'ELECTRONIC': return '科技';
+            case 'SPORT': return '体育';
+            default: return adType;
+        }
+    }
 </script>
 </body>
 </html>
